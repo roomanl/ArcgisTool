@@ -15,7 +15,8 @@
         android:id="@+id/arcgis_zoom_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp">
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="20dp">
         <!--app:show_text="true"-->
         <!--app:zoom_font_color="@color/colorAccent"-->
         <!--app:zoom_font_size="12"-->
@@ -31,18 +32,14 @@
         <!--app:button_width="35dp"-->
         <!--app:button_height="35dp"-->
         <!--&gt;-->
-
     </cn.sddman.arcgistool.view.ArcGisZoomView>
     <cn.sddman.arcgistool.view.MeasureToolView
         android:id="@+id/measure_tool"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="20dp"
-        app:is_horizontal="true"
-        app:measure_prev_text="上一步"
-        app:measure_prev_image="@drawable/rotate">
-
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+       >
     </cn.sddman.arcgistool.view.MeasureToolView>
 
     <cn.sddman.arcgistool.view.MapRotateView
@@ -50,8 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp">
-
+        android:layout_marginTop="250dp">
     </cn.sddman.arcgistool.view.MapRotateView>
 
 </RelativeLayout>

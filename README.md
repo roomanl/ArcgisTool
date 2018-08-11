@@ -4,6 +4,8 @@
 
 ## 引用：
 ```gradle
+implementation 'com.github.roomanl:ArcgisTool:v1.0'
+或者
 implementation project(':arcgistool')
 ```
 

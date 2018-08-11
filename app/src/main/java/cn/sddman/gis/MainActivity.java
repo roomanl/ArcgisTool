@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArcGisZoomView zoomBtn=(ArcGisZoomView)findViewById(R.id.arcgis_zoom_btn);
         zoomBtn.init(mMapView);
-        zoomBtn.setZoomHeight(35);
+        zoomBtn.setZoomHeight(40);
         zoomBtn.setZoomWidth(60);
         zoomBtn.setZoomBackground(R.drawable.round_corner);
         zoomBtn.isHorizontal(true);
@@ -57,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
         zoomBtn.setZoomOutText("缩小");
         zoomBtn.setZoomInText("放大");
         zoomBtn.setFontSize(12);
-        zoomBtn.setFontColor(R.color.colorMain);
+        zoomBtn.setFontColor(R.color.white);
 
         MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
         measureToolView.init(mMapView);
-        measureToolView.setButtonWidth(60);
-        measureToolView.setButtonHeight(40);
+        measureToolView.setButtonWidth(55);
+        measureToolView.setButtonHeight(35);
         measureToolView.setMeasureBackground(R.color.colorAccent);
         measureToolView.setSohwText(true);
         measureToolView.setFontSize(12);
