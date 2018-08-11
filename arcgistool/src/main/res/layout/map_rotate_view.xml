@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/rotate_bg"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="1dp"
+        android:paddingRight="1dp"
+        android:background="@drawable/sddman_shadow_bg">
+        <LinearLayout
+            android:id="@+id/zoom_rotate_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/zoom_button_topcorner">
+            <ImageView
+                android:id="@+id/zoom_rotate"
+                android:layout_width="@dimen/zoom_btn_size"
+                android:layout_height="@dimen/zoom_btn_size"
+                android:padding="@dimen/zoom_btn_padding"
+                android:src="@drawable/sddman_rotate"/>
+            <TextView
+                android:id="@+id/zoom_rotate_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zoom_rotate_text"
+                android:textSize="@dimen/zoom_font_size"
+                android:paddingBottom="@dimen/zoom_btn_padding"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

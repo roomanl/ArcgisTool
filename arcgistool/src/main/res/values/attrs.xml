@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ViewAttr">
+        <attr name="show_text" format="boolean"/>
+        <attr name="button_width" format="dimension"/>
+        <attr name="button_height" format="dimension"/>
+        <attr name="is_horizontal" format="boolean"/>
+        <attr name="view_background" format="color|reference"/>
+        <attr name="font_color" format="color|reference"/>
+        <attr name="font_size" format="integer"/>
+
+        <attr name="zoom_in_num" format="integer"/>
+        <attr name="zoom_out_num" format="integer"/>
+        <attr name="zoom_in_text" format="string"/>
+        <attr name="zoom_out_text" format="string"/>
+        <attr name="zoom_out_image" format="reference"/>
+        <attr name="zoom_in_image" format="reference"/>
+
+        <attr name="map_rotate_num" format="integer"/>
+        <attr name="map_rotate_image" format="reference"/>
+        <attr name="map_rotate_text" format="string"/>
+
+        <attr name="measure_prev_text" format="string"/>
+        <attr name="measure_next_text" format="string"/>
+        <attr name="measure_length_text" format="string"/>
+        <attr name="measure_area_text" format="string"/>
+        <attr name="measure_clear_text" format="string"/>
+        <attr name="measure_end_text" format="string"/>
+        <attr name="measure_prev_image" format="reference"/>
+        <attr name="measure_next_image" format="reference"/>
+        <attr name="measure_length_image" format="reference"/>
+        <attr name="measure_area_image" format="reference"/>
+        <attr name="measure_clear_image" format="reference"/>
+        <attr name="measure_end_image" format="reference"/>
+    </declare-styleable>
+
+
+
+</resources>

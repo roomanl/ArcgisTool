@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ArcgisTool</string>
+    <string name="zoom_in_text">放大</string>
+    <string name="zoom_out_text">缩小</string>
+    <string name="zoom_rotate_text">旋转</string>
+    <string name="measure_length_text">测距</string>
+    <string name="measure_area_text">测面积</string>
+    <string name="measure_clear_text">清除</string>
+    <string name="measure_end_text">完成</string>
+    <string name="measure_prev_text">撤销</string>
+    <string name="measure_next_text">恢复</string>
+
+    <string name="m_text">米</string>
+    <string name="km_text">千米</string>
+    <string name="km2_text">公里</string>
+</resources>

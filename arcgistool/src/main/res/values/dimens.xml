@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="zoom_btn_padding">10dp</dimen>
+    <dimen name="zoom_btn_size">35dp</dimen>
+    <dimen name="zoom_font_size">10dp</dimen>
+</resources>
