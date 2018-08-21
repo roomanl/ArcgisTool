@@ -16,4 +16,10 @@ public class Variable {
         HM2,
         A2;
     }
+    public static enum LayerType {
+        TILE,
+        WMTS,
+        IMG,
+        BUNDLE
+    }
 }

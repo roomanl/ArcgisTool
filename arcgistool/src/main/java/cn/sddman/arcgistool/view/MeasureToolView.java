@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -83,7 +84,7 @@ public class MeasureToolView extends LinearLayout {
                     arcgisMeasure.startMeasuredArea(e.getX(), e.getY());
                 }
                 if(mapListener!=null){
-                    mapListener.onSingleTapUp(e);
+                    return   mapListener.onSingleTapUp(e);
                 }
                 return super.onSingleTapUp(e);
             }
@@ -91,11 +92,35 @@ public class MeasureToolView extends LinearLayout {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 if(mapListener!=null) {
-                    mapListener.onDoubleTap(e);
+                    return  mapListener.onDoubleTap(e);
                 }
                 return super.onDoubleTap(e);
             }
-        };
+
+             @Override
+             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                 if(mapListener!=null) {
+                     return  mapListener.onScroll(e1, e2, distanceX, distanceY);
+                 }
+                 return super.onScroll(e1, e2, distanceX, distanceY);
+             }
+
+             @Override
+             public boolean onRotate(MotionEvent event, double rotationAngle) {
+                 if(mapListener!=null) {
+                   return  mapListener.onRotate(event, rotationAngle);
+                 }
+                 return super.onRotate(event, rotationAngle);
+             }
+
+             @Override
+             public boolean onScale(ScaleGestureDetector detector) {
+                 if(mapListener!=null) {
+                     return  mapListener.onScale(detector);
+                 }
+                 return super.onScale(detector);
+             }
+         };
         mMapView.setOnTouchListener(listener);
     }
 

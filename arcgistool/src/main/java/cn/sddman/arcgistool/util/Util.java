@@ -3,6 +3,7 @@ package cn.sddman.arcgistool.util;
 import android.content.Context;
 import android.util.TypedValue;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 
 import cn.sddman.arcgistool.R;
@@ -15,9 +16,12 @@ public class Util {
     }
 
     public static String forMatDouble(double num){
-        NumberFormat numberFormat=NumberFormat.getInstance();
-        numberFormat.setMaximumFractionDigits(2);
-        return numberFormat.format(num);
+        //NumberFormat numberFormat=NumberFormat.getInstance();
+        //numberFormat.setMaximumFractionDigits(2);
+        BigDecimal b = new BigDecimal(num);
+        double df = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return df+"";
+        //return numberFormat.format(num);
     }
 
     public static double lengthChange(double length, Variable.Measure type){

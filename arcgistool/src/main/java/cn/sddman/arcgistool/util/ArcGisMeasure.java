@@ -2,6 +2,8 @@ package cn.sddman.arcgistool.util;
 
 import android.content.Context;
 
+import com.esri.arcgisruntime.geometry.GeographicTransformation;
+import com.esri.arcgisruntime.geometry.GeographicTransformationStep;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.PolygonBuilder;
@@ -43,8 +45,8 @@ public class ArcGisMeasure extends Draw {
 
     public void startMeasuredLength(android.graphics.Point screenPoint){
         if(drawType==null) {
-            super.startPolygon();
-            drawType=Variable.DrawType.POLYGON;
+            super.startLine();
+            drawType=Variable.DrawType.LINE;
         }
         drawScreenPoint(screenPoint);
     }
@@ -110,11 +112,15 @@ public class ArcGisMeasure extends Draw {
     }
     private void drawScreenXY(float x, float y){
         Point point=super.screenXYtoPpoint(x,y);
+        if(mapView.getSpatialReference().getWkid()==4490 || mapView.getSpatialReference().getWkid()==4326){
+            point = (Point) GeometryEngine.project(point ,SpatialReference.create(102100));
+            super.setSpatialReference(SpatialReference.create(102100));
+        }
         if( drawType==Variable.DrawType.LINE){
-            PolylineBuilder line=(PolylineBuilder)super.drawByScreenXY(x, y);
+            PolylineBuilder line=(PolylineBuilder)super.drawByGisPoint(point);
             showLength(line,point);
         }else if(drawType==Variable.DrawType.POLYGON){
-            PolygonBuilder polygon=(PolygonBuilder)super.drawByScreenXY(x, y);
+            PolygonBuilder polygon=(PolygonBuilder)super.drawByGisPoint(point);
             showArea(polygon);
         }
 
