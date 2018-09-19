@@ -357,6 +357,7 @@ public class Draw {
             pointGroup.add(pointList);
         }
         DrawEntity de=allDraw();
+        drawType=null;
         drawPolygonGraphicOverlay=null;
         drawLineGraphicOverlay=null;
         drawPointGraphicOverlay=null;

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.data.TileCache;
+import com.esri.arcgisruntime.geometry.Envelope;
 import com.esri.arcgisruntime.internal.jni.CoreRequest;
 import com.esri.arcgisruntime.layers.ArcGISMapImageLayer;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
@@ -12,6 +13,7 @@ import com.esri.arcgisruntime.layers.WmtsLayer;
 import com.esri.arcgisruntime.loadable.LoadStatus;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
+import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.ogc.wmts.WmtsService;
 import com.esri.arcgisruntime.ogc.wmts.WmtsServiceInfo;
@@ -27,6 +29,7 @@ public class ArcGisBaseMap {
     private Context context;
     private  MapView mapView;
     private ArcGISMap map=null;
+    private Envelope envelope=null;
     private MapLoadingListener listener=null;
     private List<BaseMapEntity> baseMaps;
     public ArcGisBaseMap(Context context, MapView mapView) {
@@ -88,6 +91,12 @@ public class ArcGisBaseMap {
                 }
             }
         });
+    }
+
+    public void setEnvelope(Envelope envelope){
+        this.envelope=envelope;
+        Viewpoint vp = new Viewpoint(envelope);
+        map.setInitialViewpoint(vp);
     }
 
     public void switcBaseMap(){

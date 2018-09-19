@@ -2,7 +2,6 @@ package cn.sddman.arcgistool.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -227,7 +226,10 @@ public class MeasureToolView extends LinearLayout {
                     measureClickListener.areaClick();
                 }
             }else if (i == R.id.measure_clear_layout){
+                drawType=null;
                 DrawEntity draw=arcgisMeasure.clearMeasure();
+                measureLengthLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
+                measureAreaLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
                 if(measureClickListener!=null){
                     measureClickListener.clearClick(draw);
                 }
