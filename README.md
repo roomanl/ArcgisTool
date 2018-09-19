@@ -4,13 +4,32 @@
 ![](https://github.com/roomanl/ArcgisTool/blob/master/GIF.gif?raw=true)
 ## 引用：
 ```gradle
-implementation 'com.github.roomanl:ArcgisTool:v1.0'
+implementation 'com.github.roomanl:ArcgisTool:v1.3'
 或者
 implementation project(':arcgistool')
 ```
-
+## 更新日志：
+#### 2018/09/19 V1.3
+1、修复WGS84坐标下测量不正确的问题<br>
+2、优化测量工具控件的使用<br>
+3、封装设置底图、初始范围等接口<br>
+4、封装在底图上叠加、移除图层的接口<br>
+5、新增了很多接口，没时间写具体使用说明，有时间再写了<br>
 ## 测量工具：
 ### MeasureToolView使用
+控件的功能包括，测距、测面积、撤销、恢复、清除、完成六个功能。 <br>
+
+测距：在地图上绘制线段进行长度测量 <br>
+
+测面积：在地图上绘制一个面，进行面积测量 <br>
+
+撤销：撤销到上一步绘制，只能撤销未完成的测量 <br>
+
+恢复：恢复到下一步绘制，只能恢复未完成的测量 <br>
+
+清除：清空测量内容并结束测量，再次点击地图时不会进行测量 <br>
+
+完成：结束本次测量，本次测量将不能撤销和恢复，已绘制的图形不会被清除，如需进行下一段测量请再次点击测距或测面积按钮 <br>
 #### 最简单的基本用法：
 界面代码
 ```xml
@@ -26,6 +45,7 @@ java代码
    measureToolView.init(mMapView);
 ```
 注意：请不要在measureToolView.init(mMapView)之后给mMapView设置点击监听事件，不然会覆盖掉MeasureToolView的地图点击事件，如需要在地图点击之后做一些自己的操作，请看下面的高级用法。<br>
+
 以上代码将会显示默认的控件样式，下图是默认样式
 ![](https://github.com/roomanl/ArcgisTool/blob/master/1.jpg?raw=true)
 
@@ -98,6 +118,23 @@ java代码设置属性
         public boolean onDoubleTap(MotionEvent e) {
             //地图双击回调
             return super.onDoubleTap(e);
+        }
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                //滑动回调
+                 return super.onScroll(e1, e2, distanceX, distanceY);
+        }
+
+        @Override
+        public boolean onRotate(MotionEvent event, double rotationAngle) {
+            //旋转回调
+            return super.onRotate(event, rotationAngle);
+        }
+
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            //缩放回调
+            return super.onScale(detector);
         }
     });
 ```
