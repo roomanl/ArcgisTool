@@ -1,27 +1,17 @@
 package cn.sddman.gis;
 
-import android.support.annotation.Dimension;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
 
 import com.esri.arcgisruntime.geometry.Envelope;
-import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
 import com.esri.arcgisruntime.mapping.Viewpoint;
-import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.MapView;
 
 import cn.sddman.arcgistool.common.Variable;
-import cn.sddman.arcgistool.entity.DrawEntity;
-import cn.sddman.arcgistool.listener.MeasureClickListener;
-import cn.sddman.arcgistool.listener.ZoomClickListener;
-import cn.sddman.arcgistool.util.ArcGisDraw;
-import cn.sddman.arcgistool.util.ArcGisMeasure;
 import cn.sddman.arcgistool.view.ArcGisZoomView;
 import cn.sddman.arcgistool.view.MapRotateView;
 import cn.sddman.arcgistool.view.MeasureToolView;
@@ -45,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArcGisZoomView zoomBtn=(ArcGisZoomView)findViewById(R.id.arcgis_zoom_btn);
         zoomBtn.init(mMapView);
-        zoomBtn.setZoomHeight(40);
+        zoomBtn.setZoomHeight(35);
         zoomBtn.setZoomWidth(60);
         zoomBtn.setZoomBackground(R.drawable.round_corner);
         zoomBtn.isHorizontal(true);
@@ -57,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
         zoomBtn.setZoomOutText("缩小");
         zoomBtn.setZoomInText("放大");
         zoomBtn.setFontSize(12);
-        zoomBtn.setFontColor(R.color.white);
+        zoomBtn.setFontColor(R.color.colorMain);
 
         MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
         measureToolView.init(mMapView);
-        measureToolView.setButtonWidth(55);
-        measureToolView.setButtonHeight(35);
+        measureToolView.setButtonWidth(60);
+        measureToolView.setButtonHeight(40);
         measureToolView.setMeasureBackground(R.color.colorAccent);
         measureToolView.setSohwText(true);
         measureToolView.setFontSize(12);
