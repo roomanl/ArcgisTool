@@ -32,5 +32,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.esri.arcgisruntime:arcgis-android:100.6.0'
     //implementation 'com.github.roomanl:ArcgisTool:v1.0'
-    implementation project(path:':arcgistool',configuration: 'default')
+    implementation project(path:':arcgistool')
 }

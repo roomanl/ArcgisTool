@@ -12,6 +12,8 @@ import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.MapView;
 
 import cn.sddman.arcgistool.common.Variable;
+import cn.sddman.arcgistool.manager.ArcgisToolManager;
+import cn.sddman.arcgistool.manager.MeasureToolManager;
 import cn.sddman.arcgistool.view.ArcGisZoomView;
 import cn.sddman.arcgistool.view.MapRotateView;
 import cn.sddman.arcgistool.view.MeasureToolView;
@@ -49,33 +51,32 @@ public class MainActivity extends AppCompatActivity {
         zoomBtn.setFontSize(12);
         zoomBtn.setFontColor(R.color.colorMain);
 
-        MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
-        measureToolView.init(mMapView);
-        measureToolView.setButtonWidth(60);
-        measureToolView.setButtonHeight(40);
-        measureToolView.setMeasureBackground(R.color.colorAccent);
-        measureToolView.setSohwText(true);
-        measureToolView.setFontSize(12);
-        measureToolView.setFontColor(R.color.color444);
-        measureToolView.setMeasurePrevStr("撤销");
-        measureToolView.setMeasureNextStr("恢复");
-        measureToolView.setMeasureLengthStr("测距");
-        measureToolView.setMeasureAreaStr("测面积");
-        measureToolView.setMeasureClearStr("清除");
-        measureToolView.setMeasureEndStr("完成");
-        measureToolView.setMeasurePrevImage(R.drawable.sddman_measure_prev);
-        measureToolView.setMeasureNextImage(R.drawable.sddman_measure_next);
-        measureToolView.setMeasureLengthImage(R.drawable.sddman_measure_length);
-        measureToolView.setMeasureAreaImage(R.drawable.sddman_measure_area);
-        measureToolView.setMeasureClearImage(R.drawable.sddman_measure_clear);
-        measureToolView.setMeasureEndImage(R.drawable.sddman_measure_end);
-        measureToolView.setSpatialReference(SpatialReference.create(3857));
-        measureToolView.setLengthType(Variable.Measure.KM);
-        measureToolView.setAreaType(Variable.Measure.KM2);
-
         MapRotateView mapRotateView=(MapRotateView)findViewById(R.id.map_rotate_view);
         mapRotateView.init(mMapView);
 
+        MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
+        ArcgisToolManager.create(mMapView).builderMeasure(measureToolView)
+            .setButtonWidth(60)
+            .setButtonHeight(40)
+            .setMeasureBackground(R.color.colorAccent)
+            .setSohwText(true)
+            .setFontSize(12)
+            .setFontColor(R.color.color444)
+            .setMeasurePrevStr("撤销")
+            .setMeasureNextStr("恢复")
+            .setMeasureLengthStr("测距")
+            .setMeasureAreaStr("测面积")
+            .setMeasureClearStr("清除")
+            .setMeasureEndStr("完成")
+            .setMeasurePrevImage(R.drawable.sddman_measure_prev)
+            .setMeasureNextImage(R.drawable.sddman_measure_next)
+            .setMeasureLengthImage(R.drawable.sddman_measure_length)
+            .setMeasureAreaImage(R.drawable.sddman_measure_area)
+            .setMeasureClearImage(R.drawable.sddman_measure_clear)
+            .setMeasureEndImage(R.drawable.sddman_measure_end)
+            .setSpatialReference(SpatialReference.create(3857))
+            .setLengthType(Variable.Measure.KM)
+            .setAreaType(Variable.Measure.KM2);
     }
 
     @Override

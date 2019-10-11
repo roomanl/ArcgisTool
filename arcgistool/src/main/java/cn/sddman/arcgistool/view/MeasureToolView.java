@@ -265,31 +265,38 @@ public class MeasureToolView extends LinearLayout {
         clearImageView.getLayoutParams().height=buttonHeight;
         endImageView.getLayoutParams().height=buttonHeight;
     }
+    @Deprecated
+    public void mapClickListener(DefaultMapViewOnTouchListener mapListener){
+
+    }
+    @Deprecated
     public void setSpatialReference(SpatialReference spatialReference) {
         arcgisMeasure.setSpatialReference(spatialReference);
     }
-
+    @Deprecated
     public void setLengthType(Variable.Measure type){
         this.measureLengthType=type;
         arcgisMeasure.setLengthType(type);
     }
+    @Deprecated
     public void setAreaType(Variable.Measure type){
         this.measureAreaType=type;
         arcgisMeasure.setAreaType(type);
     }
+    @Deprecated
     public void setMeasureBackground(int bg) {
         this.bgColor=bgColor;
         measureBgView.setBackground(getResources().getDrawable(bg));
     }
-
+    @Deprecated
     public void setButtonWidth(int buttonWidth) {
         setDpButtonWidth(Util.valueToSp(getContext(),buttonWidth));
     }
-
+    @Deprecated
     public void setButtonHeight(int buttonHeight) {
         setDpButtonHeight(Util.valueToSp(getContext(),buttonHeight));
     }
-
+    @Deprecated
     public void setSohwText(boolean showText){
         this.showText=showText;
         int view=showText?View.VISIBLE:View.GONE;
@@ -300,43 +307,43 @@ public class MeasureToolView extends LinearLayout {
         measureClearText.setVisibility(view);
         measureEndText.setVisibility(view);
     }
-
+    @Deprecated
     public void setMeasurePrevStr(String measurePrevStr) {
         if(measurePrevStr==null) return;
         this.measurePrevStr = measurePrevStr;
         measurePrevText.setText(measurePrevStr);
     }
-
+    @Deprecated
     public void setMeasureNextStr(String measureNextStr) {
         if(measureNextStr==null) return;
         this.measureNextStr = measureNextStr;
         measureNextText.setText(measureNextStr);
     }
-
+    @Deprecated
     public void setMeasureLengthStr(String measureLengthStr) {
         if(measureLengthStr==null) return;
         this.measureLengthStr = measureLengthStr;
         measureLengthText.setText(measureLengthStr);
     }
-
+    @Deprecated
     public void setMeasureAreaStr(String measureAreaStr) {
         if(measureAreaStr==null) return;
         this.measureAreaStr = measureAreaStr;
         measureAreaText.setText(measureAreaStr);
     }
-
+    @Deprecated
     public void setMeasureClearStr(String measureClearStr) {
         if(measureClearStr==null) return;
         this.measureClearStr = measureClearStr;
         measureClearText.setText(measureClearStr);
     }
-
+    @Deprecated
     public void setMeasureEndStr(String measureEndStr) {
         if(measureEndStr==null) return;
         this.measureEndStr = measureEndStr;
         measureEndText.setText(measureEndStr);
     }
-
+    @Deprecated
     public void setFontColor(int fontColor) {
         this.fontColor = fontColor;
         int color = getResources().getColor(fontColor);
@@ -347,7 +354,7 @@ public class MeasureToolView extends LinearLayout {
         measureClearText.setTextColor(color);
         measureEndText.setTextColor(color);
     }
-
+    @Deprecated
     public void setFontSize(int fontSize) {
         this.fontSize = fontSize;
         measurePrevText.setTextSize(fontSize);
@@ -357,32 +364,32 @@ public class MeasureToolView extends LinearLayout {
         measureClearText.setTextSize(fontSize);
         measureEndText.setTextSize(fontSize);
     }
-
+    @Deprecated
     public void setMeasurePrevImage(int measurePrevImage) {
         this.measurePrevImage = measurePrevImage;
         prevImageView.setImageDrawable(getResources().getDrawable(measurePrevImage));
     }
-
+    @Deprecated
     public void setMeasureNextImage(int measureNextImage) {
         this.measureNextImage = measureNextImage;
         nextImageView.setImageDrawable(getResources().getDrawable(measureNextImage));
     }
-
+    @Deprecated
     public void setMeasureLengthImage(int measureLengthImage) {
         this.measureLengthImage = measureLengthImage;
         lengthImageView.setImageDrawable(getResources().getDrawable(measureLengthImage));
     }
-
+    @Deprecated
     public void setMeasureAreaImage(int measureAreaImage) {
         this.measureAreaImage = measureAreaImage;
         areaImageView.setImageDrawable(getResources().getDrawable(measureAreaImage));
     }
-
+    @Deprecated
     public void setMeasureClearImage(int measureClearImage) {
         this.measureClearImage = measureClearImage;
         clearImageView.setImageDrawable(getResources().getDrawable(measureClearImage));
     }
-
+    @Deprecated
     public void setMeasureEndImage(int measureEndImage) {
         this.measureEndImage = measureEndImage;
         endImageView.setImageDrawable(getResources().getDrawable(measureEndImage));
