@@ -2,6 +2,9 @@ package cn.sddman.gis;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
+import android.widget.Toast;
 
 import com.esri.arcgisruntime.geometry.Envelope;
 import com.esri.arcgisruntime.geometry.SpatialReference;
@@ -9,9 +12,12 @@ import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
 import com.esri.arcgisruntime.mapping.Viewpoint;
+import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.MapView;
 
 import cn.sddman.arcgistool.common.Variable;
+import cn.sddman.arcgistool.entity.DrawEntity;
+import cn.sddman.arcgistool.listener.MeasureClickListener;
 import cn.sddman.arcgistool.manager.ArcgisToolManager;
 import cn.sddman.arcgistool.manager.MeasureToolManager;
 import cn.sddman.arcgistool.view.ArcGisZoomView;
@@ -54,29 +60,89 @@ public class MainActivity extends AppCompatActivity {
         MapRotateView mapRotateView=(MapRotateView)findViewById(R.id.map_rotate_view);
         mapRotateView.init(mMapView);
 
+
         MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
-        ArcgisToolManager.create(mMapView).builderMeasure(measureToolView)
-            .setButtonWidth(60)
-            .setButtonHeight(40)
-            .setMeasureBackground(R.color.colorAccent)
-            .setSohwText(true)
-            .setFontSize(12)
-            .setFontColor(R.color.color444)
-            .setMeasurePrevStr("撤销")
-            .setMeasureNextStr("恢复")
-            .setMeasureLengthStr("测距")
-            .setMeasureAreaStr("测面积")
-            .setMeasureClearStr("清除")
-            .setMeasureEndStr("完成")
-            .setMeasurePrevImage(R.drawable.sddman_measure_prev)
-            .setMeasureNextImage(R.drawable.sddman_measure_next)
-            .setMeasureLengthImage(R.drawable.sddman_measure_length)
-            .setMeasureAreaImage(R.drawable.sddman_measure_area)
-            .setMeasureClearImage(R.drawable.sddman_measure_clear)
-            .setMeasureEndImage(R.drawable.sddman_measure_end)
-            .setSpatialReference(SpatialReference.create(3857))
-            .setLengthType(Variable.Measure.KM)
-            .setAreaType(Variable.Measure.KM2);
+        ArcgisToolManager.create(this,mMapView)
+                .setMapClickCallBack(new DefaultMapViewOnTouchListener(this,mMapView){
+                    @Override
+                    public boolean onSingleTapUp(MotionEvent e) {
+                        Toast.makeText(MainActivity.this,"onSingleTapUp",Toast.LENGTH_SHORT).show();
+                        return super.onSingleTapUp(e);
+                    }
+                    @Override
+                    public boolean onDoubleTap(MotionEvent e) {
+                        Toast.makeText(MainActivity.this,"onDoubleTap",Toast.LENGTH_SHORT).show();
+                        return super.onDoubleTap(e);
+                    }
+                    @Override
+                    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                        Toast.makeText(MainActivity.this,"onScroll",Toast.LENGTH_SHORT).show();
+                        return super.onScroll(e1, e2, distanceX, distanceY);
+                    }
+                    @Override
+                    public boolean onRotate(MotionEvent event, double rotationAngle) {
+                        Toast.makeText(MainActivity.this,"onRotate",Toast.LENGTH_SHORT).show();
+                        return super.onRotate(event, rotationAngle);
+                    }
+                    @Override
+                    public boolean onScale(ScaleGestureDetector detector) {
+                        Toast.makeText(MainActivity.this,"onScale",Toast.LENGTH_SHORT).show();
+                        return super.onScale(detector);
+                    }
+                })
+                .builderMeasure(measureToolView)
+                .setButtonWidth(60)
+                .setButtonHeight(40)
+                .setMeasureBackground(R.color.colorAccent)
+                .setSohwText(true)
+                .setFontSize(12)
+                .setFontColor(R.color.color444)
+                .setMeasurePrevStr("撤销")
+                .setMeasureNextStr("恢复")
+                .setMeasureLengthStr("测距")
+                .setMeasureAreaStr("测面积")
+                .setMeasureClearStr("清除")
+                .setMeasureEndStr("完成")
+                .setMeasurePrevImage(R.drawable.sddman_measure_prev)
+                .setMeasureNextImage(R.drawable.sddman_measure_next)
+                .setMeasureLengthImage(R.drawable.sddman_measure_length)
+                .setMeasureAreaImage(R.drawable.sddman_measure_area)
+                .setMeasureClearImage(R.drawable.sddman_measure_clear)
+                .setMeasureEndImage(R.drawable.sddman_measure_end)
+                .setSpatialReference(SpatialReference.create(3857))
+                .setLengthType(Variable.Measure.KM)
+                .setAreaType(Variable.Measure.KM2)
+                .setMeasureClickListener(new MeasureClickListener() {
+                    @Override
+                    public void prevClick(boolean hasPrev) {
+                        Toast.makeText(MainActivity.this,"MeasureToolView prevClick",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void nextClick(boolean hasNext) {
+                        Toast.makeText(MainActivity.this,"MeasureToolView nextClick",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void lengthClick() {
+                        Toast.makeText(MainActivity.this,"MeasureToolView lengthClick",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void areaClick() {
+                        Toast.makeText(MainActivity.this,"MeasureToolView areaClick",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void clearClick(DrawEntity draw) {
+                        Toast.makeText(MainActivity.this,"MeasureToolView clearClick",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void endClick(DrawEntity draw) {
+                        Toast.makeText(MainActivity.this,"MeasureToolView endClick",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
