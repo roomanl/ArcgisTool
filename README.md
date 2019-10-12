@@ -3,8 +3,9 @@
 包括：测量工具控件及测量接口，放大缩小控件及放大缩小接口，地图旋转控件及地图旋转接口。 <br>
 ![](https://github.com/roomanl/ArcgisTool/blob/master/GIF.gif?raw=true)
 ## 引用：
+[![](https://jitpack.io/v/roomanl/ArcgisTool.svg)](https://jitpack.io/#roomanl/ArcgisTool)
 ```gradle
-implementation 'com.github.roomanl:ArcgisTool:v1.4'
+implementation 'com.github.roomanl:ArcgisTool:1.4'
 或者
 implementation project(':arcgistool')
 ```
