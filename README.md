@@ -4,11 +4,13 @@
 ![](https://github.com/roomanl/ArcgisTool/blob/master/GIF.gif?raw=true)
 ## 引用：
 ```gradle
-implementation 'com.github.roomanl:ArcgisTool:v1.3'
+implementation 'com.github.roomanl:ArcgisTool:v1.4'
 或者
 implementation project(':arcgistool')
 ```
 ## 更新日志：
+#### 2019/10/12 V1.4
+新增ArcgisToolManager类，用此类来统一管理MeasureToolView，JAVA设置属性修改为用ArcgisToolManager类链式调用设置
 #### 2018/09/19 V1.3
 1、修复WGS84坐标下测量不正确的问题<br>
 2、优化测量工具控件的使用<br>
@@ -42,9 +44,9 @@ implementation project(':arcgistool')
 java代码
 ```java
    MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
-   measureToolView.init(mMapView);
+   ArcgisToolManager.create(mMapView).builderMeasure(measureToolView);
 ```
-注意：请不要在measureToolView.init(mMapView)之后给mMapView设置点击监听事件，不然会覆盖掉MeasureToolView的地图点击事件，如需要在地图点击之后做一些自己的操作，请看下面的高级用法。<br>
+注意：请不要在ArcgisToolManager.create()之后给mMapView设置点击事件，不然会覆盖掉MeasureToolView的地图点击事件，如需要在地图点击之后做一些自己的操作，请看下面设置回调的说明。<br>
 
 以上代码将会显示默认的控件样式，下图是默认样式
 ![](https://github.com/roomanl/ArcgisTool/blob/master/1.jpg?raw=true)
@@ -52,7 +54,7 @@ java代码
 MeasureToolView支持样式设置，可以设置成自己需要的样式，下图是自定义样式
 ![](https://github.com/roomanl/ArcgisTool/blob/master/2.jpg?raw=true)
 ### MeasureToolView属性样式设置
-在界面设置属性
+#### 在界面设置属性
 ```xml
  <cn.sddman.arcgistool.view.MeasureToolView
         android:id="@+id/measure_tool"
@@ -80,126 +82,109 @@ MeasureToolView支持样式设置，可以设置成自己需要的样式，下�
         >
     </cn.sddman.arcgistool.view.MeasureToolView>
 ```
-java代码设置属性
+#### java代码设置属性
 ```java
-   MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
-   measureToolView.init(mMapView);
-    measureToolView.setButtonWidth(60);//设置每一个按钮宽度;默认35
-    measureToolView.setButtonHeight(40);//设置每一个按钮高度;默认35
-    measureToolView.setMeasureBackground(R.color.colorAccent);//设置整个控件背景，默认白色圆角矩形
-    measureToolView.setSohwText(true);//是否显示文字；默认false
-    measureToolView.setFontSize(12);//设置文字大小；默认12dp
-    measureToolView.setFontColor(R.color.colorMain);
-    measureToolView.setMeasurePrevStr("撤销");//设置撤销按钮文字；默认“撤销”
-    measureToolView.setMeasureNextStr("恢复");//设置恢复按钮文字；默认“恢复”
-    measureToolView.setMeasureLengthStr("测距");//设置测距按钮文字；默认“测距”
-    measureToolView.setMeasureAreaStr("测面积");//设置测面积按钮文字；默认“测面积”
-    measureToolView.setMeasureClearStr("清除");//设置清除按钮文字；默认“清除”
-    measureToolView.setMeasureEndStr("完成");//设置完成按钮文字；默认“完成”
-    measureToolView.setMeasurePrevImage(R.drawable.sddman_measure_prev);//设置撤销按钮图标
-    measureToolView.setMeasureNextImage(R.drawable.sddman_measure_next);//设置恢复按钮图标
-    measureToolView.setMeasureLengthImage(R.drawable.sddman_measure_length);//设置测距按钮图标
-    measureToolView.setMeasureAreaImage(R.drawable.sddman_measure_area);//设置测面积按钮图标
-    measureToolView.setMeasureClearImage(R.drawable.sddman_measure_clear);//设置清除按钮图标
-    measureToolView.setMeasureEndImage(R.drawable.sddman_measure_end);//设置完成按钮图标
+MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
+ArcgisToolManager.create(mMapView).builderMeasure(measureToolView)
+        .setButtonWidth(60)//设置每一个按钮宽度;默认35
+        .setButtonHeight(40)//设置每一个按钮高度;默认35
+        .setMeasureBackground(R.color.colorAccent)//设置整个控件背景，默认白色圆角矩形
+        .setSohwText(true)//是否显示文字；默认false
+        .setFontSize(12)//设置文字大小；默认12dp
+        .setFontColor(R.color.color444)//设置字体颜色，默认#808080
+        .setMeasurePrevStr("撤销")//设置撤销按钮文字；默认“撤销”
+        .setMeasureNextStr("恢复")//设置恢复按钮文字；默认“恢复”
+        .setMeasureLengthStr("测距")//设置测距按钮文字；默认“测距”
+        .setMeasureAreaStr("测面积")//设置测面积按钮文字；默认“测面积”
+        .setMeasureClearStr("清除")//设置清除按钮文字；默认“清除”
+        .setMeasureEndStr("完成")//设置完成按钮文字；默认“完成”
+        .setMeasurePrevImage(R.drawable.sddman_measure_prev)//设置撤销按钮图标
+        .setMeasureNextImage(R.drawable.sddman_measure_next)//设置恢复按钮图标
+        .setMeasureLengthImage(R.drawable.sddman_measure_length)//设置测距按钮图标
+        .setMeasureAreaImage(R.drawable.sddman_measure_area)//设置测面积按钮图标
+        .setMeasureClearImage(R.drawable.sddman_measure_clear)//设置清除按钮图标
+        .setMeasureEndImage(R.drawable.sddman_measure_end)//设置完成按钮图标
+        .setSpatialReference(SpatialReference.create(3857))//设置坐标参考系,默认从mMapView获取SpatialReference
+        .setLengthType(Variable.Measure.KM)//设置测量长度单位,默认Variable.Measure.M(米))；其它：Variable.Measure.KM(千米)；Variable.Measure.M(米)；Variable.Measure.KIM(公里)
+        .setAreaType(Variable.Measure.KM2);//设置测量面积单位,默认Variable.Measure.M2(平方米)；其它：Variable.Measure.KM2(平方千米)；Variable.Measure.M2(平方米)；Variable.Measure.HM2(公顷)；Variable.Measure.A2(亩)；
 ```
-### MeasureToolView高级用法：
 #### 设置地图点击回调
 ```java
-    ArcGisZoomView zoomBtn=(ArcGisZoomView)findViewById(R.id.arcgis_zoom_btn);
-    measureToolView.init(mMapView,new DefaultMapViewOnTouchListener(this,mMapView){
-        @Override
-        public boolean onSingleTapUp(MotionEvent e) {
-            //地图单击回调
-            return super.onSingleTapUp(e);
-        }
-
-        @Override
-        public boolean onDoubleTap(MotionEvent e) {
-            //地图双击回调
-            return super.onDoubleTap(e);
-        }
-        @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                //滑动回调
-                 return super.onScroll(e1, e2, distanceX, distanceY);
-        }
-
-        @Override
-        public boolean onRotate(MotionEvent event, double rotationAngle) {
-            //旋转回调
-            return super.onRotate(event, rotationAngle);
-        }
-
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            //缩放回调
-            return super.onScale(detector);
-        }
-    });
+//注意：setMapClickCallBack()要在create()之后,builderMeasure()之前调用
+ArcgisToolManager.create(this,mMapView)
+            .setMapClickCallBack(new DefaultMapViewOnTouchListener(this,mMapView){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    Toast.makeText(MainActivity.this,"onSingleTapUp",Toast.LENGTH_SHORT).show();
+                    return super.onSingleTapUp(e);
+                }
+                @Override
+                public boolean onDoubleTap(MotionEvent e) {
+                    Toast.makeText(MainActivity.this,"onDoubleTap",Toast.LENGTH_SHORT).show();
+                    return super.onDoubleTap(e);
+                }
+                @Override
+                public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                    Toast.makeText(MainActivity.this,"onScroll",Toast.LENGTH_SHORT).show();
+                    return super.onScroll(e1, e2, distanceX, distanceY);
+                }
+                @Override
+                public boolean onRotate(MotionEvent event, double rotationAngle) {
+                    Toast.makeText(MainActivity.this,"onRotate",Toast.LENGTH_SHORT).show();
+                    return super.onRotate(event, rotationAngle);
+                }
+                @Override
+                public boolean onScale(ScaleGestureDetector detector) {
+                    Toast.makeText(MainActivity.this,"onScale",Toast.LENGTH_SHORT).show();
+                    return super.onScale(detector);
+                }
+            })
+            .builderMeasure(measureToolView)
 ```
 #### 设置测量工具按钮点击回调
 ```java
-    ArcGisZoomView zoomBtn=(ArcGisZoomView)findViewById(R.id.arcgis_zoom_btn);
-    measureToolView.init(mMapView, new MeasureClickListener() {
-        @Override
-        public void prevClick(boolean hasPrev) {
-            //撤销回调，hasPrev是否还能撤销
-        }
+    ArcgisToolManager.create(mMapView).builderMeasure(measureToolView)
+            .setMeasureClickListener(new MeasureClickListener() {
+                    @Override
+                    public void prevClick(boolean hasPrev) {
+                         //撤销回调，hasPrev是否还能撤销
+                        Toast.makeText(MainActivity.this,"MeasureToolView prevClick",Toast.LENGTH_SHORT).show();
+                    }
 
-        @Override
-        public void nextClick(boolean hasNext) {
-            //恢复回调，hasPrev是否还能恢复
-        }
+                    @Override
+                    public void nextClick(boolean hasNext) {
+                        //恢复回调，hasPrev是否还能恢复
+                        Toast.makeText(MainActivity.this,"MeasureToolView nextClick",Toast.LENGTH_SHORT).show();
+                    }
 
-        @Override
-        public void lengthClick() {
-            //长度测量点击
-        }
+                    @Override
+                    public void lengthClick() {
+                        //长度测量点击
+                        Toast.makeText(MainActivity.this,"MeasureToolView lengthClick",Toast.LENGTH_SHORT).show();
+                    }
 
-        @Override
-        public void areaClick() {
-            //面积测量点击
-        }
+                    @Override
+                    public void areaClick() {
+                        //面积测量点击
+                        Toast.makeText(MainActivity.this,"MeasureToolView areaClick",Toast.LENGTH_SHORT).show();
+                    }
 
-        @Override
-        public void clearClick(DrawEntity draw) {
-            //清除点击，返回DrawEntity所有绘制的文字、点、线、面的集合
-        }
+                    @Override
+                    public void clearClick(DrawEntity draw) {
+                        //清除点击，返回DrawEntity所有绘制的文字、点、线、面的集合
+                        Toast.makeText(MainActivity.this,"MeasureToolView clearClick",Toast.LENGTH_SHORT).show();
+                    }
 
-        @Override
-        public void endClick(DrawEntity draw) {
-            //完成点击，返回DrawEntity所有绘制的文字、点、线、面的集合
-        }
-    });
-```
-#### 地图点击和测量按钮点击回调同时设置
-```java
-    ArcGisZoomView zoomBtn=(ArcGisZoomView)findViewById(R.id.arcgis_zoom_btn);
-    measureToolView.init(mMapView,
-    new MeasureClickListener() {},
-    new DefaultMapViewOnTouchListener(this,mMapView){});
-```
-#### 设置坐标参考系
-```java
-    //默认从mMapView获取SpatialReference
-    measureToolView.setSpatialReference(SpatialReference.create(3857));
-```
-#### 设置测量长度单位
-```java
-    //Variable.Measure.KM(千米)；Variable.Measure.M(米)；Variable.Measure.KIM(公里)
-     //默认Variable.Measure.M(米))；
-   measureToolView.setLengthType(Variable.Measure.KM);
-```
-#### 设置测量面积单位
-```java
-    //Variable.Measure.KM2(平方千米)；Variable.Measure.M2(平方米)；Variable.Measure.HM2(公顷)；Variable.Measure.A2(亩)；
-    //默认Variable.Measure.M2(平方米)；
-   measureToolView.setAreaType(Variable.Measure.KM2);
+                    @Override
+                    public void endClick(DrawEntity draw) {
+                         //完成点击，返回DrawEntity所有绘制的文字、点、线、面的集合
+                        Toast.makeText(MainActivity.this,"MeasureToolView endClick",Toast.LENGTH_SHORT).show();
+                    }
+                });
 ```
 
 ### 测量开放接口，ArcGisMeasure
-ArcGisZoomView控件均由调用ArcGisMeasure开放接口实现
+MeasureToolView控件均由调用ArcGisMeasure开放接口实现
 ```java
     ArcGisMeasure arcgisMeasure=new ArcGisMeasure(context,mMapView);
     //默认从mMapView获取SpatialReference
