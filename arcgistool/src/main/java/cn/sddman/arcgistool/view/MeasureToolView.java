@@ -37,7 +37,6 @@ public class MeasureToolView extends LinearLayout {
     private Variable.DrawType drawType=null;
     private Variable.Measure measureLengthType=Variable.Measure.M;
     private Variable.Measure measureAreaType=Variable.Measure.M2;
-    private DefaultMapViewOnTouchListener mapListener;
     private MeasureClickListener measureClickListener;
     public MeasureToolView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs,0);
@@ -57,70 +56,9 @@ public class MeasureToolView extends LinearLayout {
         initView();
         initAttr(ta);
     }
-    public void init(MapView mMapView,DefaultMapViewOnTouchListener mapListener){
-        this.mapListener=mapListener;
-        init(mMapView);
-    }
-    public void init(MapView mMapView,MeasureClickListener measureClickListener){
-        this.measureClickListener=measureClickListener;
-        init(mMapView);
-    }
-    public void init(MapView mMapView,MeasureClickListener measureClickListener,DefaultMapViewOnTouchListener mapListener){
-        this.measureClickListener=measureClickListener;
-        this.mapListener=mapListener;
-        init(mMapView);
-    }
     public void init(MapView mMapView){
         this.mMapView=mMapView;
         arcgisMeasure=new ArcGisMeasure(context,mMapView);
-
-         DefaultMapViewOnTouchListener listener=new DefaultMapViewOnTouchListener(context,mMapView){
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                if(drawType==Variable.DrawType.LINE) {
-                    arcgisMeasure.startMeasuredLength(e.getX(), e.getY());
-                }else if(drawType==Variable.DrawType.POLYGON){
-                    arcgisMeasure.startMeasuredArea(e.getX(), e.getY());
-                }
-                if(mapListener!=null){
-                    return   mapListener.onSingleTapUp(e);
-                }
-                return super.onSingleTapUp(e);
-            }
-
-            @Override
-            public boolean onDoubleTap(MotionEvent e) {
-                if(mapListener!=null) {
-                    return  mapListener.onDoubleTap(e);
-                }
-                return super.onDoubleTap(e);
-            }
-
-             @Override
-             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                 if(mapListener!=null) {
-                     return  mapListener.onScroll(e1, e2, distanceX, distanceY);
-                 }
-                 return super.onScroll(e1, e2, distanceX, distanceY);
-             }
-
-             @Override
-             public boolean onRotate(MotionEvent event, double rotationAngle) {
-                 if(mapListener!=null) {
-                   return  mapListener.onRotate(event, rotationAngle);
-                 }
-                 return super.onRotate(event, rotationAngle);
-             }
-
-             @Override
-             public boolean onScale(ScaleGestureDetector detector) {
-                 if(mapListener!=null) {
-                     return  mapListener.onScale(detector);
-                 }
-                 return super.onScale(detector);
-             }
-         };
-        mMapView.setOnTouchListener(listener);
     }
 
     private void initView(){
@@ -244,7 +182,17 @@ public class MeasureToolView extends LinearLayout {
             }
         }
     };
+    public void onMapSingleTapUp(MotionEvent e){
+        if(drawType==Variable.DrawType.LINE) {
+            arcgisMeasure.startMeasuredLength(e.getX(), e.getY());
+        }else if(drawType==Variable.DrawType.POLYGON){
+            arcgisMeasure.startMeasuredArea(e.getX(), e.getY());
+        }
+    }
 
+    public void setMeasureClickListener(MeasureClickListener measureClickListener) {
+        this.measureClickListener = measureClickListener;
+    }
 
     private void setDpButtonWidth(int buttonWidth) {
         this.buttonWidth = buttonWidth;
@@ -264,10 +212,6 @@ public class MeasureToolView extends LinearLayout {
         areaImageView.getLayoutParams().height=buttonHeight;
         clearImageView.getLayoutParams().height=buttonHeight;
         endImageView.getLayoutParams().height=buttonHeight;
-    }
-    @Deprecated
-    public void mapClickListener(DefaultMapViewOnTouchListener mapListener){
-
     }
     @Deprecated
     public void setSpatialReference(SpatialReference spatialReference) {

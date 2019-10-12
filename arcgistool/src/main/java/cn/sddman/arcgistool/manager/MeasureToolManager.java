@@ -1,10 +1,12 @@
 package cn.sddman.arcgistool.manager;
 
+import android.view.MotionEvent;
+
 import com.esri.arcgisruntime.geometry.SpatialReference;
-import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.MapView;
 
 import cn.sddman.arcgistool.common.Variable;
+import cn.sddman.arcgistool.listener.MeasureClickListener;
 import cn.sddman.arcgistool.view.MeasureToolView;
 
 public class MeasureToolManager {
@@ -18,10 +20,14 @@ public class MeasureToolManager {
         this.mMapView=mMapView;
         measureToolView.init(mMapView);
     }
-    public MeasureToolManager setMapClickListener(DefaultMapViewOnTouchListener mapListener){
+
+    public void onMapSingleTapUp(MotionEvent e){
+        measureToolView.onMapSingleTapUp(e);
+    }
+    public MeasureToolManager setMeasureClickListener(MeasureClickListener measureClickListener) {
+        measureToolView.setMeasureClickListener(measureClickListener);
         return this;
     }
-
     public MeasureToolManager setButtonWidth(int buttonWidth){
         measureToolView.setButtonWidth(buttonWidth);
         return this;
