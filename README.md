@@ -213,3 +213,55 @@ MeasureToolView控件均由调用ArcGisMeasure开放接口实现
     //结束测量，返回DrawEntity所有绘制的文字、点、线、面的集合
    DrawEntity draw=arcgisMeasure.endMeasure();
 ```
+## 放大缩小控件：
+界面代码
+```xml
+    <cn.sddman.arcgistool.view.ArcGisZoomView
+        android:id="@+id/arcgis_zoom_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:show_text="true"//是否显示文字；默认false
+        app:zoom_in_text="true"//放大按钮文字
+        app:zoom_out_text="true"//缩小按钮文字
+        app:zoom_font_color="@color/colorAccent"//设置文字颜色；默认gray
+        app:zoom_font_size="12"//设置文字大小；默认12dp
+        app:zoom_out_image="@drawable/zoomout"//设置缩小按钮图标
+        app:zoom_in_image="@drawable/zoomin"//设置放大按钮图标
+        app:isHorizontal="false"//是否水平显示，true水平,false垂直;默认false
+        app:zoom_bg="@drawable/round_corner"//设置整个控件背景，默认白色圆角矩形
+        app:button_width="35dp"//设置每一个按钮宽度;默认35
+        app:button_height="35dp"//设置每一个按钮高度;默认35
+        >
+    </cn.sddman.arcgistool.view.ArcGisZoomView>
+```
+java代码
+```java
+    ArcGisZoomView zoomBtn=(ArcGisZoomView)findViewById(R.id.arcgis_zoom_btn);
+    ArcgisToolManager.create(this,mMapView).builderZoomView(zoomBtn);
+```
+java设置属性
+```java
+ArcgisToolManager.create(this,mMapView).builderZoomView(zoomBtn)
+            .setZoomHeight(35)//设置每一个按钮高度;默认35
+            .setZoomWidth(60)/设置每一个按钮宽度;默认35
+            .setZoomBackground(R.drawable.round_corner)//设置整个控件背景，默认白色圆角矩形
+            .isHorizontal(true)//是否水平显示，true水平,false垂直;默认false
+            .setZoomOutImage(R.drawable.sddman_zoomout)//设置缩小按钮图标
+            .setZoomInImage(R.drawable.sddman_zoomin)//设置放大按钮图标
+            .setShowText(true)//是否显示文字；默认false
+            .setZoomOutText("缩小")//缩小按钮文字
+            .setZoomInText("放大")//放大按钮文字
+            .setFontSize(12)//设置文字大小；默认12dp
+            .setFontColor(R.color.colorMain)//设置文字颜色；默认gray
+            .setZoomClickListener(new ZoomClickListener() {//按钮点击回调
+                @Override
+                public void zoomInClick(View view) {
+                    Toast.makeText(MainActivity.this,"zoom in",Toast.LENGTH_SHORT).show();
+                }
+    
+                @Override
+                public void zoomOutClick(View view) {
+                    Toast.makeText(MainActivity.this,"zoom out",Toast.LENGTH_SHORT).show();
+                }
+            });
+```

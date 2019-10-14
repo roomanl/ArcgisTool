@@ -44,10 +44,6 @@ public class ArcGisZoomView extends LinearLayout{
     public void init(MapView mMapView){
         this.mMapView=mMapView;
     }
-    public void init(MapView mMapView,ZoomClickListener zoomClickListener){
-        this.mMapView=mMapView;
-        this.zoomClickListener=zoomClickListener;
-    }
 
     private void initAttr(TypedArray ta){
         bgColor=ta.getResourceId(R.styleable.ViewAttr_view_background,R.drawable.sddman_shadow_bg);
@@ -132,18 +128,24 @@ public class ArcGisZoomView extends LinearLayout{
         linearParams.height = zoomHeight-20;
         spiltLineView2.setLayoutParams(linearParams);
     }
+    @Deprecated
+    public void setZoomClickListener(ZoomClickListener zoomClickListener) {
+        this.zoomClickListener = zoomClickListener;
+    }
+
+    @Deprecated
     public void setZoomWidth(int w){
         setZoomDpWidth(Util.valueToSp(getContext(),w));
     }
-
+    @Deprecated
     public void setZoomHeight(int h){
         setZoomDpHeight(Util.valueToSp(getContext(),h));
     }
-
+    @Deprecated
     public void setZoomBackground(int bg){
         zoomBgView.setBackground(getResources().getDrawable(bg));
     }
-
+    @Deprecated
     public void isHorizontal(boolean horizontal) {
         isHorizontal=horizontal;
         if(horizontal){
@@ -159,25 +161,25 @@ public class ArcGisZoomView extends LinearLayout{
         }
     }
 
-
+    @Deprecated
     public void setZoomInNum(int num){
         zoomInNum=num;
     }
-
+    @Deprecated
     public void setZoomOutNum(int num){
         zoomOutNum=num;
     }
-
+    @Deprecated
     public void setZoomInImage(int zoomInImage) {
         this.zoomInImage = zoomInImage;
         zoomInView.setImageDrawable(getResources().getDrawable(zoomInImage));
     }
-
+    @Deprecated
     public void setZoomOutImage(int zoomOutImage) {
         this.zoomOutImage = zoomOutImage;
         zoomOutView.setImageDrawable(getResources().getDrawable(zoomOutImage));
     }
-
+    @Deprecated
     public void setShowText(boolean showText) {
         this.showText = showText;
         int padding=Util.valueToSp(getContext(),10);
@@ -193,36 +195,36 @@ public class ArcGisZoomView extends LinearLayout{
             zoomOutView.setPadding(padding,padding,padding,padding);
         }
     }
-
+    @Deprecated
     public void setZoomInText(String zoomInText) {
         if(zoomInText==null) return;
         this.zoomInText = zoomInText;
         zoomInTextView.setText(zoomInText);
     }
-
+    @Deprecated
     public void setZoomOutText(String zoomOutText) {
         if(zoomOutText==null) return;
         this.zoomOutText = zoomOutText;
         zoomOutTextView.setText(zoomOutText);
     }
-
+    @Deprecated
     public void setFontSize(int fontSize) {
         this.fontSize = fontSize;
         zoomInTextView.setTextSize(fontSize);
         zoomOutTextView.setTextSize(fontSize);
     }
-
+    @Deprecated
     public void setFontColor(int fontColor) {
         this.fontColor = fontColor;
         int color = getResources().getColor(fontColor);
         zoomInTextView.setTextColor(color);
         zoomOutTextView.setTextColor(color);
     }
-
+    @Deprecated
     public void setZoomInNum(double zoomInNum) {
         this.zoomInNum = zoomInNum;
     }
-
+    @Deprecated
     public void setZoomOutNum(double zoomOutNum) {
         this.zoomOutNum = zoomOutNum;
     }

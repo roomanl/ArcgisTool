@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.View;
 import android.widget.Toast;
 
 import com.esri.arcgisruntime.geometry.Envelope;
@@ -18,6 +19,7 @@ import com.esri.arcgisruntime.mapping.view.MapView;
 import cn.sddman.arcgistool.common.Variable;
 import cn.sddman.arcgistool.entity.DrawEntity;
 import cn.sddman.arcgistool.listener.MeasureClickListener;
+import cn.sddman.arcgistool.listener.ZoomClickListener;
 import cn.sddman.arcgistool.manager.ArcgisToolManager;
 import cn.sddman.arcgistool.manager.MeasureToolManager;
 import cn.sddman.arcgistool.view.ArcGisZoomView;
@@ -40,22 +42,6 @@ public class MainActivity extends AppCompatActivity {
         Viewpoint vp = new Viewpoint(mInitExtent);
         map.setInitialViewpoint(vp);
         mMapView.setMap(map);
-
-        ArcGisZoomView zoomBtn=(ArcGisZoomView)findViewById(R.id.arcgis_zoom_btn);
-        zoomBtn.init(mMapView);
-        zoomBtn.setZoomHeight(35);
-        zoomBtn.setZoomWidth(60);
-        zoomBtn.setZoomBackground(R.drawable.round_corner);
-        zoomBtn.isHorizontal(true);
-        zoomBtn.setZoomInNum(2);
-        zoomBtn.setZoomOutNum(2);
-        zoomBtn.setZoomOutImage(R.drawable.sddman_zoomout);
-        zoomBtn.setZoomInImage(R.drawable.sddman_zoomin);
-        zoomBtn.setShowText(true);
-        zoomBtn.setZoomOutText("缩小");
-        zoomBtn.setZoomInText("放大");
-        zoomBtn.setFontSize(12);
-        zoomBtn.setFontColor(R.color.colorMain);
 
         MapRotateView mapRotateView=(MapRotateView)findViewById(R.id.map_rotate_view);
         mapRotateView.init(mMapView);
@@ -143,6 +129,31 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"MeasureToolView endClick",Toast.LENGTH_SHORT).show();
                     }
                 });
+        ArcGisZoomView zoomBtn=(ArcGisZoomView)findViewById(R.id.arcgis_zoom_btn);
+        ArcgisToolManager.create(this,mMapView).builderZoomView(zoomBtn)
+            .setZoomHeight(35)
+            .setZoomWidth(60)
+            .setZoomBackground(R.drawable.round_corner)
+            .isHorizontal(true)
+            .setZoomOutImage(R.drawable.sddman_zoomout)
+            .setZoomInImage(R.drawable.sddman_zoomin)
+            .setShowText(true)
+            .setZoomOutText("缩小")
+            .setZoomInText("放大")
+            .setFontSize(12)
+            .setFontColor(R.color.colorMain)
+            .setZoomClickListener(new ZoomClickListener() {
+                @Override
+                public void zoomInClick(View view) {
+                    Toast.makeText(MainActivity.this,"zoom in",Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void zoomOutClick(View view) {
+                    Toast.makeText(MainActivity.this,"zoom out",Toast.LENGTH_SHORT).show();
+                }
+            });
+
     }
 
     @Override

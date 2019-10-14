@@ -8,11 +8,13 @@ import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.MapView;
 
 import cn.sddman.arcgistool.common.Variable;
+import cn.sddman.arcgistool.view.ArcGisZoomView;
 import cn.sddman.arcgistool.view.MeasureToolView;
 
 public class ArcgisToolManager {
     private static MeasureToolManager measureToolManager=null;
     private static ArcgisToolManager arcgisToolManager=null;
+    private ArcGisZoomManager arcGisZoomManager=null;
     private MapView mMapView;
     private Context context;
     private DefaultMapViewOnTouchListener mapListener;
@@ -83,5 +85,11 @@ public class ArcgisToolManager {
             measureToolManager=new MeasureToolManager(measureToolView,mMapView);
         }
         return measureToolManager;
+    }
+    public ArcGisZoomManager builderZoomView(ArcGisZoomView arcGisZoomView){
+        if(arcGisZoomManager==null){
+            arcGisZoomManager=new ArcGisZoomManager(arcGisZoomView,mMapView);
+        }
+        return arcGisZoomManager;
     }
 }
