@@ -5,11 +5,14 @@
 ## 引用：
 [![](https://jitpack.io/v/roomanl/ArcgisTool.svg)](https://jitpack.io/#roomanl/ArcgisTool)
 ```gradle
-implementation 'com.github.roomanl:ArcgisTool:1.4'
+implementation 'com.github.roomanl:ArcgisTool:1.5'
 或者
 implementation project(':arcgistool')
 ```
 ## 更新日志：
+## 更新日志：
+#### 2019/10/14 V1.5
+ArcgisToolManager类新增放大缩小控件的样式属性设置
 #### 2019/10/12 V1.4
 新增ArcgisToolManager类，用此类来统一管理MeasureToolView，JAVA设置属性修改为用ArcgisToolManager类链式调用设置
 #### 2018/09/19 V1.3
