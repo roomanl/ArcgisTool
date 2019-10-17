@@ -11,6 +11,8 @@ implementation project(':arcgistool')
 ```
 ## 更新日志：
 ## 更新日志：
+#### 2019/10/17 V1.6
+ArcgisToolManager类新增旋转控件的样式属性设置
 #### 2019/10/14 V1.5
 ArcgisToolManager类新增放大缩小控件的样式属性设置
 #### 2019/10/12 V1.4
@@ -224,14 +226,14 @@ MeasureToolView控件均由调用ArcGisMeasure开放接口实现
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:show_text="true"//是否显示文字；默认false
-        app:zoom_in_text="true"//放大按钮文字
-        app:zoom_out_text="true"//缩小按钮文字
+        app:zoom_in_text="放大"//放大按钮文字
+        app:zoom_out_text="缩小"//缩小按钮文字
         app:zoom_font_color="@color/colorAccent"//设置文字颜色；默认gray
         app:zoom_font_size="12"//设置文字大小；默认12dp
         app:zoom_out_image="@drawable/zoomout"//设置缩小按钮图标
         app:zoom_in_image="@drawable/zoomin"//设置放大按钮图标
         app:isHorizontal="false"//是否水平显示，true水平,false垂直;默认false
-        app:zoom_bg="@drawable/round_corner"//设置整个控件背景，默认白色圆角矩形
+        app:view_background="@drawable/round_corner"//设置整个控件背景，默认白色圆角矩形
         app:button_width="35dp"//设置每一个按钮宽度;默认35
         app:button_height="35dp"//设置每一个按钮高度;默认35
         >
@@ -267,4 +269,46 @@ ArcgisToolManager.create(this,mMapView).builderZoomView(zoomBtn)
                     Toast.makeText(MainActivity.this,"zoom out",Toast.LENGTH_SHORT).show();
                 }
             });
+```
+## 地图旋转控件：
+界面代码
+```xml
+    <cn.sddman.arcgistool.view.MapRotateView
+        android:id="@+id/map_rotate_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:show_text="true"//是否显示文字；默认false
+        app:zoom_font_color="@color/colorAccent"//设置文字颜色；默认gray
+        app:zoom_font_size="12"//设置文字大小；默认12dp
+        app:button_width="35dp"//设置每一个按钮宽度;默认35
+        app:button_height="35dp"//设置每一个按钮高度;默认35
+        app:view_background="@drawable/round_corner"//设置整个控件背景，默认白色圆角矩形
+        app:map_rotate_text="旋转"//旋转按钮文字
+        app:map_rotate_image="@drawable/sddman_measure_prev"//设置旋转按钮图标
+        >
+    </cn.sddman.arcgistool.view.MapRotateView>
+```
+java代码
+```java
+ MapRotateView mapRotateView=(MapRotateView)findViewById(R.id.map_rotate_view);
+ArcgisToolManager.create(this,mMapView).builderRotateView(mapRotateView);
+```
+java设置属性
+```java
+ArcgisToolManager.create(this,mMapView).builderRotateView(mapRotateView)
+        .setHeight(40)//设置每一个按钮宽度;默认35
+        .setWidth(60)//设置每一个按钮宽度;默认35
+        .setBackground(R.drawable.round_corner)//设置整个控件背景，默认白色圆角矩形
+        .setRotateNum(-45)//设置每次旋转角度，负数逆时针旋转，正数顺时针旋转
+        .setRotateImage(R.drawable.sddman_measure_prev)//设置旋转按钮图标
+        .setRotateText("旋转")//旋转按钮文字
+        .setShowText(true)//是否显示文字；默认false
+        .setFontSize(16)//设置文字大小；默认12dp
+        .setFontColor(R.color.colorMain)//设置文字颜色；默认gray
+        .setMapRotateClickListener(new MapRotateClickListener() {//按钮点击回调
+            @Override
+            public void mapRotateClick(View view) {
+                Toast.makeText(MainActivity.this,"Map Rotate",Toast.LENGTH_SHORT).show();
+            }
+        });
 ```
