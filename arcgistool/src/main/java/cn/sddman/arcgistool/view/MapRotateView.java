@@ -42,9 +42,9 @@ public class MapRotateView extends LinearLayout {
     public void init(MapView mMapView){
         this.mMapView=mMapView;
     }
-    public void init(MapView mMapView,MapRotateClickListener mapRotateClickListener){
-        this.mMapView=mMapView;
-        this.mapRotateClickListener=mapRotateClickListener;
+
+    public void setMapRotateClickListener(MapRotateClickListener mapRotateClickListener) {
+        this.mapRotateClickListener = mapRotateClickListener;
     }
 
     private void initAttr(TypedArray ta){

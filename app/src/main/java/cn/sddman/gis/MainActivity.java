@@ -18,6 +18,7 @@ import com.esri.arcgisruntime.mapping.view.MapView;
 
 import cn.sddman.arcgistool.common.Variable;
 import cn.sddman.arcgistool.entity.DrawEntity;
+import cn.sddman.arcgistool.listener.MapRotateClickListener;
 import cn.sddman.arcgistool.listener.MeasureClickListener;
 import cn.sddman.arcgistool.listener.ZoomClickListener;
 import cn.sddman.arcgistool.manager.ArcgisToolManager;
@@ -42,10 +43,6 @@ public class MainActivity extends AppCompatActivity {
         Viewpoint vp = new Viewpoint(mInitExtent);
         map.setInitialViewpoint(vp);
         mMapView.setMap(map);
-
-        MapRotateView mapRotateView=(MapRotateView)findViewById(R.id.map_rotate_view);
-        mapRotateView.init(mMapView);
-
 
         MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
         ArcgisToolManager.create(this,mMapView)
@@ -153,6 +150,24 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"zoom out",Toast.LENGTH_SHORT).show();
                 }
             });
+
+        MapRotateView mapRotateView=(MapRotateView)findViewById(R.id.map_rotate_view);
+        ArcgisToolManager.create(this,mMapView).builderRotateView(mapRotateView)
+        .setHeight(40)
+        .setWidth(60)
+        .setBackground(R.drawable.round_corner)
+        .setRotateNum(-45)
+        .setRotateImage(R.drawable.sddman_measure_prev)
+        .setRotateText("旋转")
+        .setShowText(true)
+        .setFontSize(16)
+        .setFontColor(R.color.colorMain)
+        .setMapRotateClickListener(new MapRotateClickListener() {
+            @Override
+            public void mapRotateClick(View view) {
+                Toast.makeText(MainActivity.this,"Map Rotate",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

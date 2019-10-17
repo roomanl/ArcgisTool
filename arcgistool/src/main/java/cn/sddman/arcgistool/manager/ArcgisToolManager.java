@@ -9,12 +9,14 @@ import com.esri.arcgisruntime.mapping.view.MapView;
 
 import cn.sddman.arcgistool.common.Variable;
 import cn.sddman.arcgistool.view.ArcGisZoomView;
+import cn.sddman.arcgistool.view.MapRotateView;
 import cn.sddman.arcgistool.view.MeasureToolView;
 
 public class ArcgisToolManager {
     private static MeasureToolManager measureToolManager=null;
     private static ArcgisToolManager arcgisToolManager=null;
     private ArcGisZoomManager arcGisZoomManager=null;
+    private MapRotateViewManager mapRotateViewManager=null;
     private MapView mMapView;
     private Context context;
     private DefaultMapViewOnTouchListener mapListener;
@@ -91,5 +93,11 @@ public class ArcgisToolManager {
             arcGisZoomManager=new ArcGisZoomManager(arcGisZoomView,mMapView);
         }
         return arcGisZoomManager;
+    }
+    public MapRotateViewManager builderRotateView(MapRotateView mapRotateView){
+        if(mapRotateViewManager==null){
+            mapRotateViewManager=new MapRotateViewManager(mapRotateView,mMapView);
+        }
+        return mapRotateViewManager;
     }
 }
