@@ -5,7 +5,7 @@
 ## 引用：
 [![](https://jitpack.io/v/roomanl/ArcgisTool.svg)](https://jitpack.io/#roomanl/ArcgisTool)
 ```gradle
-implementation 'com.github.roomanl:ArcgisTool:1.5'
+implementation 'com.github.roomanl:ArcgisTool:1.6'
 或者
 implementation project(':arcgistool')
 ```
