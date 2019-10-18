@@ -9,6 +9,12 @@
     <string name="measure_end_text">完成</string>
     <string name="measure_prev_text">撤销</string>
     <string name="measure_next_text">恢复</string>
+    <string name="drawing_line_text">线</string>
+    <string name="drawing_polygon_text">多边形</string>
+    <string name="drawing_orthogon_text">矩形</string>
+    <string name="drawing_circle_text">圆形</string>
+    <string name="drawing_ellipse_text">椭圆</string>
+    <string name="drawing_rhombus_text">菱形</string>
 
     <string name="m_text">米</string>
     <string name="km_text">千米</string>
