@@ -28,13 +28,10 @@ public class DrawGraphView extends LinearLayout {
     private LinearLayout drawingBgView,drawingLineLayout,drawingPolygonLayout,drawingOrthogonLayout,drawingCircleLayout,drawingEllipseLayout,drawingRhombusLayout;
     private ImageView drawingLineImageView,drawingPolygonImageView,drawingOrthogonImageView,drawingCircleImageView,drawingEllipseImageView,drawingRhombusImageView;
     private TextView drawingLineText,drawingPolygonText,drawingOrthogonText,drawingCircleText,drawingEllipseText,drawingRhombusText;
-    private int bgColor,fontColor,measurePrevImage,measureNextImage,measureLengthImage,measureAreaImage,measureClearImage,measureEndImage;
+    private int bgColor,fontColor,drawingLineImage,drawingPolygonImage,drawingOrthogonImage,drawingCircleImage,drawingEllipseImage,drawingRhombusImage;
     private int buttonWidth,buttonHeight,fontSize;
     private boolean isHorizontal,showText=false;
-    private String measurePrevStr,measureNextStr,measureLengthStr,measureAreaStr,measureClearStr,measureEndStr;
-    private Variable.DrawType drawType=null;
-    private Variable.Measure measureLengthType=Variable.Measure.M;
-    private Variable.Measure measureAreaType=Variable.Measure.M2;
+    private String drawingLineStr,drawingPolygonStr,drawingOrthogonStr,drawingCircleStr,drawingEllipseStr,drawingRhombusStr;
     private MeasureClickListener measureClickListener;
     public DrawGraphView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs,0);
@@ -73,13 +70,13 @@ public class DrawGraphView extends LinearLayout {
         drawingEllipseText=(TextView)findViewById(R.id.drawing_ellipse_text);
         drawingRhombusText=(TextView)findViewById(R.id.drawing_rhombus_text);
 
-        drawingBgView=(LinearLayout)findViewById(R.id.measure_bg);
-        drawingLineLayout=(LinearLayout)findViewById(R.id.measure_prev_layout);
-        drawingPolygonLayout=(LinearLayout)findViewById(R.id.measure_next_layout);
-        drawingOrthogonLayout=(LinearLayout)findViewById(R.id.measure_length_layout);
-        drawingCircleLayout=(LinearLayout)findViewById(R.id.measure_area_layout);
-        drawingEllipseLayout=(LinearLayout)findViewById(R.id.measure_clear_layout);
-        drawingRhombusLayout=(LinearLayout)findViewById(R.id.measure_end_layout);
+        drawingBgView=(LinearLayout)findViewById(R.id.drawing_bg);
+        drawingLineLayout=(LinearLayout)findViewById(R.id.drawing_line_layout);
+        drawingPolygonLayout=(LinearLayout)findViewById(R.id.drawing_polygon_layout);
+        drawingOrthogonLayout=(LinearLayout)findViewById(R.id.drawing_orthogon_layout);
+        drawingCircleLayout=(LinearLayout)findViewById(R.id.drawing_circle_layout);
+        drawingEllipseLayout=(LinearLayout)findViewById(R.id.drawing_ellipse_layout);
+        drawingRhombusLayout=(LinearLayout)findViewById(R.id.drawing_rhombus_layout);
 
         //drawingLineLayout.setVisibility(GONE);
         //drawingPolygonLayout.setVisibility(GONE);
@@ -97,96 +94,62 @@ public class DrawGraphView extends LinearLayout {
         buttonWidth=ta.getDimensionPixelSize(R.styleable.ViewAttr_button_width, Util.valueToSp(getContext(),35));
         buttonHeight=ta.getDimensionPixelSize(R.styleable.ViewAttr_button_height, Util.valueToSp(getContext(),35));
         showText=ta.getBoolean(R.styleable.ViewAttr_show_text,false);
-        measurePrevStr=ta.getString(R.styleable.ViewAttr_measure_prev_text);
-        measureNextStr=ta.getString(R.styleable.ViewAttr_measure_next_text);
-        measureLengthStr=ta.getString(R.styleable.ViewAttr_measure_length_text);
-        measureAreaStr=ta.getString(R.styleable.ViewAttr_measure_area_text);
-        measureClearStr=ta.getString(R.styleable.ViewAttr_measure_clear_text);
-        measureEndStr=ta.getString(R.styleable.ViewAttr_measure_end_text);
+        drawingLineStr=ta.getString(R.styleable.ViewAttr_drawing_line_text);
+        drawingPolygonStr=ta.getString(R.styleable.ViewAttr_drawing_polygon_text);
+        drawingOrthogonStr=ta.getString(R.styleable.ViewAttr_drawing_orthogon_text);
+        drawingCircleStr=ta.getString(R.styleable.ViewAttr_drawing_circle_text);
+        drawingEllipseStr=ta.getString(R.styleable.ViewAttr_drawing_ellipse_text);
+        drawingRhombusStr=ta.getString(R.styleable.ViewAttr_drawing_rhombus_text);
         fontColor=ta.getResourceId(R.styleable.ViewAttr_font_color,R.color.gray);
         fontSize=ta.getInt(R.styleable.ViewAttr_font_size,12);
-        measurePrevImage=ta.getResourceId(R.styleable.ViewAttr_measure_prev_image,R.drawable.sddman_measure_prev);
-        measureNextImage=ta.getResourceId(R.styleable.ViewAttr_measure_next_image,R.drawable.sddman_measure_next);
-        measureLengthImage=ta.getResourceId(R.styleable.ViewAttr_measure_length_image,R.drawable.sddman_measure_length);
-        measureAreaImage=ta.getResourceId(R.styleable.ViewAttr_measure_area_image,R.drawable.sddman_measure_area);
-        measureClearImage=ta.getResourceId(R.styleable.ViewAttr_measure_clear_image,R.drawable.sddman_measure_clear);
-        measureEndImage=ta.getResourceId(R.styleable.ViewAttr_measure_end_image,R.drawable.sddman_measure_end);
+        drawingLineImage=ta.getResourceId(R.styleable.ViewAttr_drawing_line_image,R.drawable.sddman_drawing_line);
+        drawingPolygonImage=ta.getResourceId(R.styleable.ViewAttr_drawing_polygon_image,R.drawable.sddman_drawing_polygon);
+        drawingOrthogonImage=ta.getResourceId(R.styleable.ViewAttr_drawing_orthogon_image,R.drawable.sddman_drawing_orthogon);
+        drawingCircleImage=ta.getResourceId(R.styleable.ViewAttr_drawing_circle_image,R.drawable.sddman_drawing_circle);
+        drawingEllipseImage=ta.getResourceId(R.styleable.ViewAttr_drawing_ellipse_image,R.drawable.sddman_drawing_ellipse);
+        drawingRhombusImage=ta.getResourceId(R.styleable.ViewAttr_drawing_rhombus_image,R.drawable.sddman_drawing_rhombus);
 
-        setMeasureBackground(bgColor);
+        setBackground(bgColor);
         setDpButtonWidth(buttonWidth);
         setDpButtonHeight(buttonHeight);
         setSohwText(showText);
-        setMeasurePrevStr(measurePrevStr);
-        setMeasureNextStr(measureNextStr);
-        setMeasureLengthStr(measureLengthStr);
-        setMeasureAreaStr(measureAreaStr);
-        setMeasureClearStr(measureClearStr);
-        setMeasureEndStr(measureEndStr);
+        setdrawingLineStr(drawingLineStr);
+        setdrawingPolygonStr(drawingPolygonStr);
+        setdrawingOrthogonStr(drawingOrthogonStr);
+        setdrawingCircleStr(drawingCircleStr);
+        setdrawingEllipseStr(drawingEllipseStr);
+        setdrawingRhombusStr(drawingRhombusStr);
         setFontColor(fontColor);
         setFontSize(fontSize);
-        setMeasurePrevImage(measurePrevImage);
-        setMeasureNextImage(measureNextImage);
-        setMeasureLengthImage(measureLengthImage);
-        setMeasureAreaImage(measureAreaImage);
-        setMeasureClearImage(measureClearImage);
-        setMeasureEndImage(measureEndImage);
+        setdrawingLineImage(drawingLineImage);
+        setdrawingPolygonImage(drawingPolygonImage);
+        setdrawingOrthogonImage(drawingOrthogonImage);
+        setdrawingCircleImage(drawingCircleImage);
+        setdrawingEllipseImage(drawingEllipseImage);
+        setdrawingRhombusImage(drawingRhombusImage);
     }
 
     private OnClickListener listener=new OnClickListener() {
         @Override
         public void onClick(View view) {
             int i = view.getId();
-            if (i == R.id.measure_prev_layout){
-                boolean hasPrev=arcgisMeasure.prevDraw();
-                if(measureClickListener!=null){
-                    measureClickListener.prevClick(hasPrev);
-                }
-            }else if (i == R.id.measure_next_layout){
-                boolean hasNext=arcgisMeasure.nextDraw();
-                if(measureClickListener!=null){
-                    measureClickListener.nextClick(hasNext);
-                }
-            }else if (i == R.id.measure_length_layout){
-                drawType=Variable.DrawType.LINE;
-                arcgisMeasure.endMeasure();
-                drawingOrthogonLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
-                drawingCircleLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
-                if(measureClickListener!=null){
-                    measureClickListener.lengthClick();
-                }
-            }else if (i == R.id.measure_area_layout){
-                drawType=Variable.DrawType.POLYGON;
-                arcgisMeasure.endMeasure();
-                drawingOrthogonLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
-                drawingCircleLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
-                if(measureClickListener!=null){
-                    measureClickListener.areaClick();
-                }
-            }else if (i == R.id.measure_clear_layout){
-                drawType=null;
-                DrawEntity draw=arcgisMeasure.clearMeasure();
-                drawingOrthogonLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
-                drawingCircleLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
-                if(measureClickListener!=null){
-                    measureClickListener.clearClick(draw);
-                }
-            }else if (i == R.id.measure_end_layout){
-                drawType=null;
-                DrawEntity draw=arcgisMeasure.endMeasure();
-                drawingOrthogonLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
-                drawingCircleLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
-                if(measureClickListener!=null){
-                    measureClickListener.endClick(draw);
-                }
+            if (i == R.id.drawing_line_layout){
+
+            }else if (i == R.id.drawing_polygon_layout){
+
+            }else if (i == R.id.drawing_orthogon_layout){
+
+            }else if (i == R.id.drawing_circle_layout){
+
+            }else if (i == R.id.drawing_ellipse_layout){
+
+            }else if (i == R.id.drawing_rhombus_layout){
+
             }
         }
     };
     public void onMapSingleTapUp(MotionEvent e){
-        if(drawType==Variable.DrawType.LINE) {
-            arcgisMeasure.startMeasuredLength(e.getX(), e.getY());
-        }else if(drawType==Variable.DrawType.POLYGON){
-            arcgisMeasure.startMeasuredArea(e.getX(), e.getY());
-        }
+
     }
 
     public void setMeasureClickListener(MeasureClickListener measureClickListener) {
@@ -212,22 +175,9 @@ public class DrawGraphView extends LinearLayout {
         drawingEllipseImageView.getLayoutParams().height=buttonHeight;
         drawingRhombusImageView.getLayoutParams().height=buttonHeight;
     }
+
     @Deprecated
-    public void setSpatialReference(SpatialReference spatialReference) {
-        arcgisMeasure.setSpatialReference(spatialReference);
-    }
-    @Deprecated
-    public void setLengthType(Variable.Measure type){
-        this.measureLengthType=type;
-        arcgisMeasure.setLengthType(type);
-    }
-    @Deprecated
-    public void setAreaType(Variable.Measure type){
-        this.measureAreaType=type;
-        arcgisMeasure.setAreaType(type);
-    }
-    @Deprecated
-    public void setMeasureBackground(int bg) {
+    public void setBackground(int bg) {
         this.bgColor=bgColor;
         drawingBgView.setBackground(getResources().getDrawable(bg));
     }
@@ -251,40 +201,40 @@ public class DrawGraphView extends LinearLayout {
         drawingRhombusText.setVisibility(view);
     }
     @Deprecated
-    public void setMeasurePrevStr(String measurePrevStr) {
-        if(measurePrevStr==null) return;
-        this.measurePrevStr = measurePrevStr;
-        drawingLineText.setText(measurePrevStr);
+    public void setdrawingLineStr(String drawingLineStr) {
+        if(drawingLineStr==null) return;
+        this.drawingLineStr = drawingLineStr;
+        drawingLineText.setText(drawingLineStr);
     }
     @Deprecated
-    public void setMeasureNextStr(String measureNextStr) {
-        if(measureNextStr==null) return;
-        this.measureNextStr = measureNextStr;
-        drawingPolygonText.setText(measureNextStr);
+    public void setdrawingPolygonStr(String drawingPolygonStr) {
+        if(drawingPolygonStr==null) return;
+        this.drawingPolygonStr = drawingPolygonStr;
+        drawingPolygonText.setText(drawingPolygonStr);
     }
     @Deprecated
-    public void setMeasureLengthStr(String measureLengthStr) {
-        if(measureLengthStr==null) return;
-        this.measureLengthStr = measureLengthStr;
-        drawingOrthogonText.setText(measureLengthStr);
+    public void setdrawingOrthogonStr(String drawingOrthogonStr) {
+        if(drawingOrthogonStr==null) return;
+        this.drawingOrthogonStr = drawingOrthogonStr;
+        drawingOrthogonText.setText(drawingOrthogonStr);
     }
     @Deprecated
-    public void setMeasureAreaStr(String measureAreaStr) {
-        if(measureAreaStr==null) return;
-        this.measureAreaStr = measureAreaStr;
-        drawingCircleText.setText(measureAreaStr);
+    public void setdrawingCircleStr(String drawingCircleStr) {
+        if(drawingCircleStr==null) return;
+        this.drawingCircleStr = drawingCircleStr;
+        drawingCircleText.setText(drawingCircleStr);
     }
     @Deprecated
-    public void setMeasureClearStr(String measureClearStr) {
-        if(measureClearStr==null) return;
-        this.measureClearStr = measureClearStr;
-        drawingEllipseText.setText(measureClearStr);
+    public void setdrawingEllipseStr(String drawingEllipseStr) {
+        if(drawingEllipseStr==null) return;
+        this.drawingEllipseStr = drawingEllipseStr;
+        drawingEllipseText.setText(drawingEllipseStr);
     }
     @Deprecated
-    public void setMeasureEndStr(String measureEndStr) {
-        if(measureEndStr==null) return;
-        this.measureEndStr = measureEndStr;
-        drawingRhombusText.setText(measureEndStr);
+    public void setdrawingRhombusStr(String drawingRhombusStr) {
+        if(drawingRhombusStr==null) return;
+        this.drawingRhombusStr = drawingRhombusStr;
+        drawingRhombusText.setText(drawingRhombusStr);
     }
     @Deprecated
     public void setFontColor(int fontColor) {
@@ -308,34 +258,34 @@ public class DrawGraphView extends LinearLayout {
         drawingRhombusText.setTextSize(fontSize);
     }
     @Deprecated
-    public void setMeasurePrevImage(int measurePrevImage) {
-        this.measurePrevImage = measurePrevImage;
-        drawingLineImageView.setImageDrawable(getResources().getDrawable(measurePrevImage));
+    public void setdrawingLineImage(int drawingLineImage) {
+        this.drawingLineImage = drawingLineImage;
+        drawingLineImageView.setImageDrawable(getResources().getDrawable(drawingLineImage));
     }
     @Deprecated
-    public void setMeasureNextImage(int measureNextImage) {
-        this.measureNextImage = measureNextImage;
-        drawingPolygonImageView.setImageDrawable(getResources().getDrawable(measureNextImage));
+    public void setdrawingPolygonImage(int drawingPolygonImage) {
+        this.drawingPolygonImage = drawingPolygonImage;
+        drawingPolygonImageView.setImageDrawable(getResources().getDrawable(drawingPolygonImage));
     }
     @Deprecated
-    public void setMeasureLengthImage(int measureLengthImage) {
-        this.measureLengthImage = measureLengthImage;
-        drawingOrthogonImageView.setImageDrawable(getResources().getDrawable(measureLengthImage));
+    public void setdrawingOrthogonImage(int drawingOrthogonImage) {
+        this.drawingOrthogonImage = drawingOrthogonImage;
+        drawingOrthogonImageView.setImageDrawable(getResources().getDrawable(drawingOrthogonImage));
     }
     @Deprecated
-    public void setMeasureAreaImage(int measureAreaImage) {
-        this.measureAreaImage = measureAreaImage;
-        drawingCircleImageView.setImageDrawable(getResources().getDrawable(measureAreaImage));
+    public void setdrawingCircleImage(int drawingCircleImage) {
+        this.drawingCircleImage = drawingCircleImage;
+        drawingCircleImageView.setImageDrawable(getResources().getDrawable(drawingCircleImage));
     }
     @Deprecated
-    public void setMeasureClearImage(int measureClearImage) {
-        this.measureClearImage = measureClearImage;
-        drawingEllipseImageView.setImageDrawable(getResources().getDrawable(measureClearImage));
+    public void setdrawingEllipseImage(int drawingEllipseImage) {
+        this.drawingEllipseImage = drawingEllipseImage;
+        drawingEllipseImageView.setImageDrawable(getResources().getDrawable(drawingEllipseImage));
     }
     @Deprecated
-    public void setMeasureEndImage(int measureEndImage) {
-        this.measureEndImage = measureEndImage;
-        drawingRhombusImageView.setImageDrawable(getResources().getDrawable(measureEndImage));
+    public void setdrawingRhombusImage(int drawingRhombusImage) {
+        this.drawingRhombusImage = drawingRhombusImage;
+        drawingRhombusImageView.setImageDrawable(getResources().getDrawable(drawingRhombusImage));
     }
 
 }

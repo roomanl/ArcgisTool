@@ -33,6 +33,19 @@
         <attr name="measure_area_image" format="reference"/>
         <attr name="measure_clear_image" format="reference"/>
         <attr name="measure_end_image" format="reference"/>
+
+        <attr name="drawing_line_text" format="string"/>
+        <attr name="drawing_polygon_text" format="string"/>
+        <attr name="drawing_orthogon_text" format="string"/>
+        <attr name="drawing_circle_text" format="string"/>
+        <attr name="drawing_ellipse_text" format="string"/>
+        <attr name="drawing_rhombus_text" format="string"/>
+        <attr name="drawing_line_image" format="reference"/>
+        <attr name="drawing_polygon_image" format="reference"/>
+        <attr name="drawing_orthogon_image" format="reference"/>
+        <attr name="drawing_circle_image" format="reference"/>
+        <attr name="drawing_ellipse_image" format="reference"/>
+        <attr name="drawing_rhombus_image" format="reference"/>
     </declare-styleable>
 
 
