@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:id="@+id/measure_bg"
+        android:id="@+id/drawing_bg"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,7 +13,7 @@
         android:gravity="center"
         android:background="@drawable/sddman_shadow_bg">
         <LinearLayout
-            android:id="@+id/measure_prev_layout"
+            android:id="@+id/drawing_line_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -26,7 +26,7 @@
                 android:padding="@dimen/zoom_btn_padding"
                 android:src="@drawable/sddman_drawing_line"/>
             <TextView
-                android:id="@+id/measure_prev_text"
+                android:id="@+id/drawing_line_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/drawing_line_text"
@@ -39,20 +39,20 @@
             android:layout_height="25dp"
             android:background="#c5c5c5" />
         <LinearLayout
-            android:id="@+id/measure_next_layout"
+            android:id="@+id/drawing_polygon_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
             android:background="@drawable/zoom_button_topcorner">
             <ImageView
-                android:id="@+id/measure_next"
+                android:id="@+id/drawing_polygon"
                 android:layout_width="@dimen/zoom_btn_size"
                 android:layout_height="@dimen/zoom_btn_size"
                 android:padding="@dimen/zoom_btn_padding"
                 android:src="@drawable/sddman_drawing_polygon"/>
             <TextView
-                android:id="@+id/measure_next_text"
+                android:id="@+id/drawing_polygon_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/drawing_polygon_text"
@@ -65,19 +65,19 @@
             android:layout_height="25dp"
             android:background="#c5c5c5" />
         <LinearLayout
-            android:id="@+id/measure_length_layout"
+            android:id="@+id/drawing_orthogon_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
             <ImageView
-                android:id="@+id/measure_length"
+                android:id="@+id/drawing_orthogon"
                 android:layout_width="@dimen/zoom_btn_size"
                 android:layout_height="@dimen/zoom_btn_size"
                 android:padding="@dimen/zoom_btn_padding"
                 android:src="@drawable/sddman_drawing_orthogon"/>
             <TextView
-                android:id="@+id/measure_length_text"
+                android:id="@+id/drawing_orthogon_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/drawing_orthogon_text"
@@ -90,19 +90,19 @@
             android:layout_height="25dp"
             android:background="#c5c5c5"/>
         <LinearLayout
-            android:id="@+id/measure_area_layout"
+            android:id="@+id/drawing_circle_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
             <ImageView
-                android:id="@+id/measure_area"
+                android:id="@+id/drawing_circle"
                 android:layout_width="@dimen/zoom_btn_size"
                 android:layout_height="@dimen/zoom_btn_size"
                 android:padding="@dimen/zoom_btn_padding"
                 android:src="@drawable/sddman_drawing_circle"/>
             <TextView
-                android:id="@+id/measure_area_text"
+                android:id="@+id/drawing_circle_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/drawing_circle_text"
@@ -115,20 +115,20 @@
             android:layout_height="25dp"
             android:background="#c5c5c5"/>
         <LinearLayout
-            android:id="@+id/measure_clear_layout"
+            android:id="@+id/drawing_ellipse_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
             android:background="@drawable/zoom_button_topcorner">
             <ImageView
-                android:id="@+id/measure_clear"
+                android:id="@+id/drawing_ellipse"
                 android:layout_width="@dimen/zoom_btn_size"
                 android:layout_height="@dimen/zoom_btn_size"
                 android:padding="@dimen/zoom_btn_padding"
                 android:src="@drawable/sddman_drawing_ellipse"/>
             <TextView
-                android:id="@+id/measure_clear_text"
+                android:id="@+id/drawing_ellipse_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/drawing_ellipse_text"
@@ -142,20 +142,20 @@
             android:background="#c5c5c5"/>
 
         <LinearLayout
-            android:id="@+id/measure_end_layout"
+            android:id="@+id/drawing_rhombus_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
             android:background="@drawable/zoom_button_topcorner">
             <ImageView
-                android:id="@+id/measure_end"
+                android:id="@+id/drawing_rhombus"
                 android:layout_width="@dimen/zoom_btn_size"
                 android:layout_height="@dimen/zoom_btn_size"
                 android:padding="@dimen/zoom_btn_padding"
                 android:src="@drawable/sddman_drawing_rhombus"/>
             <TextView
-                android:id="@+id/measure_end_text"
+                android:id="@+id/drawing_rhombus_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/drawing_rhombus_text"
