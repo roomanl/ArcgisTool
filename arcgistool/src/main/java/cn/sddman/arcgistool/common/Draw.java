@@ -165,7 +165,7 @@ public class Draw {
     }
 
     private PolylineBuilder drawLine(Point point1,Point point2){
-        //绘制面板为空，说明重新绘制一个linr，在地图和线集合里添加一个新line
+        //绘制面板为空，说明重新绘制一个line，在地图和线集合里添加一个新line
         if(drawLineGraphicOverlay==null){
             drawLineGraphicOverlay = new GraphicsOverlay();
             mapView.getGraphicsOverlays().add(drawLineGraphicOverlay);

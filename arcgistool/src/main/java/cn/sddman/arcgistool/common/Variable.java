@@ -7,6 +7,14 @@ public class Variable {
         LINE,
         POLYGON;
     }
+    public static enum GraphType {
+        LINE,
+        POLYGON,
+        ORTHOGON,
+        CIRCLE,
+        ELLIPSE,
+        RHOMBUS;
+    }
     public static enum Measure {
         M,
         KM,

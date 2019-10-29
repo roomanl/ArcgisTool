@@ -18,6 +18,7 @@ import cn.sddman.arcgistool.R;
 import cn.sddman.arcgistool.common.Variable;
 import cn.sddman.arcgistool.entity.DrawEntity;
 import cn.sddman.arcgistool.listener.MeasureClickListener;
+import cn.sddman.arcgistool.util.ArcGisDrawGraph;
 import cn.sddman.arcgistool.util.ArcGisMeasure;
 import cn.sddman.arcgistool.util.Util;
 
@@ -31,8 +32,10 @@ public class DrawGraphView extends LinearLayout {
     private int bgColor,fontColor,drawingLineImage,drawingPolygonImage,drawingOrthogonImage,drawingCircleImage,drawingEllipseImage,drawingRhombusImage;
     private int buttonWidth,buttonHeight,fontSize;
     private boolean isHorizontal,showText=false;
+    private Variable.GraphType graphType=null;
     private String drawingLineStr,drawingPolygonStr,drawingOrthogonStr,drawingCircleStr,drawingEllipseStr,drawingRhombusStr;
     private MeasureClickListener measureClickListener;
+    private ArcGisDrawGraph arcGisDrawGraph=null;
     public DrawGraphView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs,0);
     }
@@ -134,21 +137,46 @@ public class DrawGraphView extends LinearLayout {
         public void onClick(View view) {
             int i = view.getId();
             if (i == R.id.drawing_line_layout){
-
+                clearBgColor();
+                drawingLineLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
             }else if (i == R.id.drawing_polygon_layout){
-
+                clearBgColor();
+                drawingPolygonLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
             }else if (i == R.id.drawing_orthogon_layout){
-
+                clearBgColor();
+                drawingOrthogonLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
             }else if (i == R.id.drawing_circle_layout){
-
+                clearBgColor();
+                drawingCircleLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
+                mMapView.setCanMagnifierPanMap(true);
             }else if (i == R.id.drawing_ellipse_layout){
-
+                clearBgColor();
+                drawingEllipseLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
             }else if (i == R.id.drawing_rhombus_layout){
-
+                clearBgColor();
+                drawingRhombusLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
             }
         }
     };
+    private void clearBgColor(){
+        graphType=null;
+        drawingLineLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
+        drawingPolygonLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
+        drawingOrthogonLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
+        drawingCircleLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
+        drawingEllipseLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
+        drawingRhombusLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
+    }
     public void onMapSingleTapUp(MotionEvent e){
+
+    }
+    public void onFling(MotionEvent e1,MotionEvent e2,float velocityX, float velocityY) {
+        if(arcGisDrawGraph==null){
+            arcGisDrawGraph=new ArcGisDrawGraph(context,mMapView);
+        }
+        if(graphType== Variable.GraphType.CIRCLE){
+            arcGisDrawGraph.drawCircle(e1,e2,velocityX,velocityY);
+        }
 
     }
 
