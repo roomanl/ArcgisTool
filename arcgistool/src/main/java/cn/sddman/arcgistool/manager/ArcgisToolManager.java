@@ -1,14 +1,20 @@
 package cn.sddman.arcgistool.manager;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.View;
 
+import com.esri.arcgisruntime.mapping.ArcGISMap;
+import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.MapView;
 
 import cn.sddman.arcgistool.common.Variable;
 import cn.sddman.arcgistool.view.ArcGisZoomView;
+import cn.sddman.arcgistool.view.DrawGraphView;
 import cn.sddman.arcgistool.view.MapRotateView;
 import cn.sddman.arcgistool.view.MeasureToolView;
 
@@ -17,8 +23,11 @@ public class ArcgisToolManager {
     private static ArcgisToolManager arcgisToolManager=null;
     private ArcGisZoomManager arcGisZoomManager=null;
     private MapRotateViewManager mapRotateViewManager=null;
+    private DrawGraphManager drawGraphManager=null;
     private MapView mMapView;
+    private ArcGISMap arcGISMap;
     private Context context;
+    private Viewpoint viewpoint=null;
     private DefaultMapViewOnTouchListener mapListener;
 
     public ArcgisToolManager(Context context,MapView mMapView) {
@@ -43,12 +52,27 @@ public class ArcgisToolManager {
                 }
                 return super.onDoubleTap(e);
             }
-
+            @Override
+            public boolean onDoubleTouchDrag(MotionEvent e) {
+                return super.onDoubleTouchDrag(e);
+            }
+            @Override
+            public boolean  onFling(MotionEvent e1,MotionEvent e2,float velocityX, float velocityY) {
+                return super.onFling(e1,e2,velocityX,velocityY);
+            }
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
                 if(mapListener!=null) {
                     mapListener.onScroll(e1, e2, distanceX, distanceY);
                 }
+                if(drawGraphManager!=null){
+                    if(viewpoint!=null){
+                        arcGISMap.setInitialViewpoint(viewpoint);
+                    }
+                    drawGraphManager.onScroll(e1,e2,distanceX,distanceY);
+                }
+                Log.e("e1========>",e1.getX()+"");
+                Log.e("e1========>",e2.getX()+"");
                 return super.onScroll(e1, e2, distanceX, distanceY);
             }
 
@@ -67,6 +91,27 @@ public class ArcgisToolManager {
                 }
                 return super.onScale(detector);
             }
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                if(viewpoint==null){
+                    viewpoint=arcGISMap.getInitialViewpoint();
+                }
+                return super.onDown(e);
+            }
+
+            @Override
+            public boolean onUp(MotionEvent e) {
+                viewpoint=null;
+                Log.e("onUp========>",e.getX()+"");
+                return super.onUp(e);
+            }
+
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+
+                return super.onTouch(view, event);
+            }
         };
         mMapView.setOnTouchListener(listener);
     }
@@ -75,6 +120,13 @@ public class ArcgisToolManager {
         if(arcgisToolManager==null){
             arcgisToolManager=new ArcgisToolManager(context,mMapView);
         }
+        return arcgisToolManager;
+    }
+    public static ArcgisToolManager create(Context context, MapView mMapView, ArcGISMap arcGISMap){
+        if(arcgisToolManager==null){
+            arcgisToolManager=new ArcgisToolManager(context,mMapView);
+        }
+        arcgisToolManager.arcGISMap=arcGISMap;
         return arcgisToolManager;
     }
     public ArcgisToolManager setMapClickCallBack(DefaultMapViewOnTouchListener mapListener){
@@ -99,5 +151,11 @@ public class ArcgisToolManager {
             mapRotateViewManager=new MapRotateViewManager(mapRotateView,mMapView);
         }
         return mapRotateViewManager;
+    }
+    public DrawGraphManager builderDrawGraphView(DrawGraphView drawGraphView){
+        if(drawGraphManager==null){
+            drawGraphManager=new DrawGraphManager(drawGraphView,mMapView);
+        }
+        return drawGraphManager;
     }
 }

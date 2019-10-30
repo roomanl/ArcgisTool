@@ -170,12 +170,12 @@ public class DrawGraphView extends LinearLayout {
     public void onMapSingleTapUp(MotionEvent e){
 
     }
-    public void onFling(MotionEvent e1,MotionEvent e2,float velocityX, float velocityY) {
+    public void onScroll(MotionEvent e1,MotionEvent e2,float distanceX, float distanceY) {
         if(arcGisDrawGraph==null){
             arcGisDrawGraph=new ArcGisDrawGraph(context,mMapView);
         }
         if(graphType== Variable.GraphType.CIRCLE){
-            arcGisDrawGraph.drawCircle(e1,e2,velocityX,velocityY);
+            arcGisDrawGraph.drawCircle(e1,e2,distanceX,distanceY);
         }
 
     }

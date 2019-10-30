@@ -24,8 +24,8 @@ public class DrawGraphManager {
     public void onMapSingleTapUp(MotionEvent e){
         drawGraphView.onMapSingleTapUp(e);
     }
-    public void onFling(MotionEvent e1,MotionEvent e2,float velocityX, float velocityY){
-        drawGraphView.onFling(e1,e2,velocityX,velocityY);
+    public void onScroll(MotionEvent e1,MotionEvent e2,float distanceX, float distanceY){
+        drawGraphView.onScroll(e1,e2,distanceX,distanceY);
     }
     public DrawGraphManager setMeasureClickListener(MeasureClickListener measureClickListener) {
         drawGraphView.setMeasureClickListener(measureClickListener);
