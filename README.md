@@ -312,3 +312,5 @@ ArcgisToolManager.create(this,mMapView).builderRotateView(mapRotateView)
             }
         });
 ```
+### ArcgisJSTool-for-Vue
+([预览](http://rootvip.cn/map/#/index)，特殊原因JS版代码暂不开源，这里只提供展示)<br>
