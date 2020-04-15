@@ -66,7 +66,7 @@ public class ArcgisToolManager {
                     mapListener.onScroll(e1, e2, distanceX, distanceY);
                 }
                 if(drawGraphManager!=null){
-                    if(viewpoint!=null){
+                    if(viewpoint!=null && arcGISMap!=null){
                         arcGISMap.setInitialViewpoint(viewpoint);
                     }
                     drawGraphManager.onScroll(e1,e2,distanceX,distanceY);
@@ -94,7 +94,7 @@ public class ArcgisToolManager {
 
             @Override
             public boolean onDown(MotionEvent e) {
-                if(viewpoint==null){
+                if(viewpoint==null && arcGISMap!=null){
                     viewpoint=arcGISMap.getInitialViewpoint();
                 }
                 return super.onDown(e);

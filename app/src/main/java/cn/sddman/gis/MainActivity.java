@@ -10,11 +10,14 @@ import android.widget.Toast;
 import com.esri.arcgisruntime.geometry.Envelope;
 import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
+import com.esri.arcgisruntime.layers.WebTiledLayer;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.MapView;
+
+import java.util.Arrays;
 
 import cn.sddman.arcgistool.common.Variable;
 import cn.sddman.arcgistool.entity.DrawEntity;
@@ -29,14 +32,16 @@ import cn.sddman.arcgistool.view.MeasureToolView;
 
 public class MainActivity extends AppCompatActivity {
     private MapView mMapView;
-    private String url="http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer";
+    private String url="https://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer";
+    private String templateUri="http://mt{subDomain}.google.cn/vt?lyrs=m&scale=1&hl=zh-CN&gl=cn&x={col}&y={row}&z={level}";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mMapView = (MapView) findViewById(R.id.mapViewLayout);
         ArcGISTiledLayer tiledLayerBaseMap = new ArcGISTiledLayer(url);
-        Basemap basemap = new Basemap(tiledLayerBaseMap);
+        WebTiledLayer webTiledLayer=new WebTiledLayer(templateUri, Arrays.asList("0","1","2","3"));
+        Basemap basemap = new Basemap(webTiledLayer);
         ArcGISMap map = new ArcGISMap(basemap);
         Envelope mInitExtent = new Envelope(12152397.115334747, 2780298.008156988, 12204603.605653452, 2804643.2016657833,
                 SpatialReference.create(102100));
