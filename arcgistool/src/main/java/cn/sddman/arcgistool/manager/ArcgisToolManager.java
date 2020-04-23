@@ -40,7 +40,7 @@ public class ArcgisToolManager {
                     measureToolManager.onMapSingleTapUp(e);
                 }
                 if(mapListener!=null){
-                    mapListener.onSingleTapUp(e);
+                    return mapListener.onSingleTapUp(e);
                 }
                 return super.onSingleTapUp(e);
             }
@@ -54,32 +54,36 @@ public class ArcgisToolManager {
             }
             @Override
             public boolean onDoubleTouchDrag(MotionEvent e) {
+                if(mapListener!=null) {
+                    return mapListener.onDoubleTouchDrag(e);
+                }
                 return super.onDoubleTouchDrag(e);
             }
             @Override
             public boolean  onFling(MotionEvent e1,MotionEvent e2,float velocityX, float velocityY) {
+                if(mapListener!=null) {
+                    return mapListener.onFling(e1,e2,velocityX,velocityY);
+                }
                 return super.onFling(e1,e2,velocityX,velocityY);
             }
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                if(mapListener!=null) {
-                    mapListener.onScroll(e1, e2, distanceX, distanceY);
-                }
                 if(drawGraphManager!=null){
                     if(viewpoint!=null && arcGISMap!=null){
                         arcGISMap.setInitialViewpoint(viewpoint);
                     }
                     drawGraphManager.onScroll(e1,e2,distanceX,distanceY);
                 }
-                Log.e("e1========>",e1.getX()+"");
-                Log.e("e1========>",e2.getX()+"");
+                if(mapListener!=null) {
+                    return mapListener.onScroll(e1, e2, distanceX, distanceY);
+                }
                 return super.onScroll(e1, e2, distanceX, distanceY);
             }
 
             @Override
             public boolean onRotate(MotionEvent event, double rotationAngle) {
                 if(mapListener!=null) {
-                    mapListener.onRotate(event, rotationAngle);
+                    return mapListener.onRotate(event, rotationAngle);
                 }
                 return super.onRotate(event, rotationAngle);
             }
@@ -87,7 +91,7 @@ public class ArcgisToolManager {
             @Override
             public boolean onScale(ScaleGestureDetector detector) {
                 if(mapListener!=null) {
-                    mapListener.onScale(detector);
+                    return mapListener.onScale(detector);
                 }
                 return super.onScale(detector);
             }
@@ -97,20 +101,83 @@ public class ArcgisToolManager {
                 if(viewpoint==null && arcGISMap!=null){
                     viewpoint=arcGISMap.getInitialViewpoint();
                 }
+                if(mapListener!=null) {
+                    return mapListener.onDown(e);
+                }
                 return super.onDown(e);
             }
 
             @Override
             public boolean onUp(MotionEvent e) {
                 viewpoint=null;
-                Log.e("onUp========>",e.getX()+"");
+                if(mapListener!=null) {
+                    return mapListener.onUp(e);
+                }
                 return super.onUp(e);
             }
 
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-
+                if(mapListener!=null) {
+                    return mapListener.onTouch(view, event);
+                }
                 return super.onTouch(view, event);
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                if(mapListener!=null) {
+                    mapListener.onLongPress(e);
+                }
+                super.onLongPress(e);
+            }
+
+            @Override
+            public boolean onDoubleTapEvent(MotionEvent e) {
+                if(mapListener!=null) {
+                    return mapListener.onDoubleTapEvent(e);
+                }
+                return super.onDoubleTapEvent(e);
+            }
+
+            @Override
+            public boolean onMultiPointerTap(MotionEvent event) {
+                if(mapListener!=null) {
+                    return mapListener.onMultiPointerTap(event);
+                }
+                return super.onMultiPointerTap(event);
+            }
+
+            @Override
+            public boolean onScaleBegin(ScaleGestureDetector detector) {
+                if(mapListener!=null) {
+                    return mapListener.onScaleBegin(detector);
+                }
+                return super.onScaleBegin(detector);
+            }
+
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                if(mapListener!=null) {
+                    return mapListener.onSingleTapConfirmed(e);
+                }
+                return super.onSingleTapConfirmed(e);
+            }
+
+            @Override
+            public void onScaleEnd(ScaleGestureDetector detector) {
+                if(mapListener!=null) {
+                    mapListener.onScaleEnd(detector);
+                }
+                super.onScaleEnd(detector);
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+                if(mapListener!=null) {
+                    mapListener.onShowPress(e);
+                }
+                super.onShowPress(e);
             }
         };
         mMapView.setOnTouchListener(listener);
