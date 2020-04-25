@@ -13,33 +13,34 @@ import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.MapView;
 
 import cn.sddman.arcgistool.common.Variable;
+import cn.sddman.arcgistool.listener.MapViewOnTouchListener;
 import cn.sddman.arcgistool.view.ArcGisZoomView;
 import cn.sddman.arcgistool.view.DrawGraphView;
 import cn.sddman.arcgistool.view.MapRotateView;
 import cn.sddman.arcgistool.view.MeasureToolView;
 
 public class ArcgisToolManager {
-    private static MeasureToolManager measureToolManager=null;
-    private static ArcgisToolManager arcgisToolManager=null;
+    private MeasureToolManager measureToolManager=null;
+    private ArcgisToolManager arcgisToolManager=null;
     private ArcGisZoomManager arcGisZoomManager=null;
     private MapRotateViewManager mapRotateViewManager=null;
     private DrawGraphManager drawGraphManager=null;
     private MapView mMapView;
-    private ArcGISMap arcGISMap;
     private Context context;
     private Viewpoint viewpoint=null;
-    private DefaultMapViewOnTouchListener mapListener;
-
+    private DefaultMapViewOnTouchListener listener;
+    private MapViewOnTouchListener mapListener;
     public ArcgisToolManager(Context context,MapView mMapView) {
         this.mMapView=mMapView;
         this.context=context;
-        DefaultMapViewOnTouchListener listener=new DefaultMapViewOnTouchListener(context,mMapView){
+        listener=new DefaultMapViewOnTouchListener(context,mMapView){
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 if(measureToolManager!=null){
                     measureToolManager.onMapSingleTapUp(e);
                 }
                 if(mapListener!=null){
+                    super.onSingleTapUp(e);
                     return mapListener.onSingleTapUp(e);
                 }
                 return super.onSingleTapUp(e);
@@ -48,13 +49,15 @@ public class ArcgisToolManager {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 if(mapListener!=null) {
-                    mapListener.onDoubleTap(e);
+                    super.onDoubleTap(e);
+                    return mapListener.onDoubleTap(e);
                 }
                 return super.onDoubleTap(e);
             }
             @Override
             public boolean onDoubleTouchDrag(MotionEvent e) {
                 if(mapListener!=null) {
+                    super.onDoubleTouchDrag(e);
                     return mapListener.onDoubleTouchDrag(e);
                 }
                 return super.onDoubleTouchDrag(e);
@@ -62,19 +65,15 @@ public class ArcgisToolManager {
             @Override
             public boolean  onFling(MotionEvent e1,MotionEvent e2,float velocityX, float velocityY) {
                 if(mapListener!=null) {
+                    super.onFling(e1,e2,velocityX,velocityY);
                     return mapListener.onFling(e1,e2,velocityX,velocityY);
                 }
                 return super.onFling(e1,e2,velocityX,velocityY);
             }
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                if(drawGraphManager!=null){
-                    if(viewpoint!=null && arcGISMap!=null){
-                        arcGISMap.setInitialViewpoint(viewpoint);
-                    }
-                    drawGraphManager.onScroll(e1,e2,distanceX,distanceY);
-                }
                 if(mapListener!=null) {
+                    super.onScroll(e1, e2, distanceX, distanceY);
                     return mapListener.onScroll(e1, e2, distanceX, distanceY);
                 }
                 return super.onScroll(e1, e2, distanceX, distanceY);
@@ -83,6 +82,7 @@ public class ArcgisToolManager {
             @Override
             public boolean onRotate(MotionEvent event, double rotationAngle) {
                 if(mapListener!=null) {
+                    super.onRotate(event, rotationAngle);
                     return mapListener.onRotate(event, rotationAngle);
                 }
                 return super.onRotate(event, rotationAngle);
@@ -91,6 +91,7 @@ public class ArcgisToolManager {
             @Override
             public boolean onScale(ScaleGestureDetector detector) {
                 if(mapListener!=null) {
+                    super.onScale(detector);
                     return mapListener.onScale(detector);
                 }
                 return super.onScale(detector);
@@ -98,10 +99,8 @@ public class ArcgisToolManager {
 
             @Override
             public boolean onDown(MotionEvent e) {
-                if(viewpoint==null && arcGISMap!=null){
-                    viewpoint=arcGISMap.getInitialViewpoint();
-                }
                 if(mapListener!=null) {
+                    super.onDown(e);
                     return mapListener.onDown(e);
                 }
                 return super.onDown(e);
@@ -111,6 +110,7 @@ public class ArcgisToolManager {
             public boolean onUp(MotionEvent e) {
                 viewpoint=null;
                 if(mapListener!=null) {
+                    super.onUp(e);
                     return mapListener.onUp(e);
                 }
                 return super.onUp(e);
@@ -119,6 +119,7 @@ public class ArcgisToolManager {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 if(mapListener!=null) {
+                    super.onTouch(view, event);
                     return mapListener.onTouch(view, event);
                 }
                 return super.onTouch(view, event);
@@ -135,6 +136,7 @@ public class ArcgisToolManager {
             @Override
             public boolean onDoubleTapEvent(MotionEvent e) {
                 if(mapListener!=null) {
+                    super.onDoubleTapEvent(e);
                     return mapListener.onDoubleTapEvent(e);
                 }
                 return super.onDoubleTapEvent(e);
@@ -143,6 +145,7 @@ public class ArcgisToolManager {
             @Override
             public boolean onMultiPointerTap(MotionEvent event) {
                 if(mapListener!=null) {
+                    super.onMultiPointerTap(event);
                     return mapListener.onMultiPointerTap(event);
                 }
                 return super.onMultiPointerTap(event);
@@ -151,6 +154,7 @@ public class ArcgisToolManager {
             @Override
             public boolean onScaleBegin(ScaleGestureDetector detector) {
                 if(mapListener!=null) {
+                    super.onScaleBegin(detector);
                     return mapListener.onScaleBegin(detector);
                 }
                 return super.onScaleBegin(detector);
@@ -159,6 +163,7 @@ public class ArcgisToolManager {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 if(mapListener!=null) {
+                    super.onSingleTapConfirmed(e);
                     return mapListener.onSingleTapConfirmed(e);
                 }
                 return super.onSingleTapConfirmed(e);
@@ -183,22 +188,22 @@ public class ArcgisToolManager {
         mMapView.setOnTouchListener(listener);
     }
 
-    public static ArcgisToolManager create(Context context, MapView mMapView){
+    /*public  ArcgisToolManager create(Context context, MapView mMapView){
         if(arcgisToolManager==null){
             arcgisToolManager=new ArcgisToolManager(context,mMapView);
         }
-        return arcgisToolManager;
+        return this;
     }
-    public static ArcgisToolManager create(Context context, MapView mMapView, ArcGISMap arcGISMap){
+    public  ArcgisToolManager create(Context context, MapView mMapView, ArcGISMap arcGISMap){
         if(arcgisToolManager==null){
             arcgisToolManager=new ArcgisToolManager(context,mMapView);
         }
         arcgisToolManager.arcGISMap=arcGISMap;
         return arcgisToolManager;
-    }
-    public ArcgisToolManager setMapClickCallBack(DefaultMapViewOnTouchListener mapListener){
+    }*/
+    public ArcgisToolManager setMapClickCallBack(MapViewOnTouchListener mapListener){
         this.mapListener=mapListener;
-        return arcgisToolManager;
+        return this;
     }
 
     public MeasureToolManager builderMeasure(MeasureToolView measureToolView){
@@ -225,4 +230,5 @@ public class ArcgisToolManager {
         }
         return drawGraphManager;
     }
+
 }

@@ -5,12 +5,16 @@
 ## 引用：
 [![](https://jitpack.io/v/roomanl/ArcgisTool.svg)](https://jitpack.io/#roomanl/ArcgisTool)
 ```gradle
-implementation 'com.github.roomanl:ArcgisTool:1.6'
+implementation 'com.github.roomanl:ArcgisTool:1.7'
 或者
 implementation project(':arcgistool')
 ```
 ## 更新日志：
-## 更新日志：
+#### 2019/04/25 V1.7
+1、补全所有地图事件回调<br>
+2、修复不能在多个地图界面使用工具控件的BUG。<br>
+BUG产生原因：原来的ArcgisToolManager.create(Context, MapView)返回的是静态的。所以多个界面的ArcgisToolManager都是同一个对象，所以出现这样的BUG。<br>
+现修改为： ArcgisToolManager arcgisToolManager=new ArcgisToolManager(Context,mMapView);之后的样式设置、回调设置都用arcgisToolManager来调用。具体请看下面的使用文档
 #### 2019/10/17 V1.6
 ArcgisToolManager类新增旋转控件的样式属性设置
 #### 2019/10/14 V1.5
@@ -50,9 +54,10 @@ ArcgisToolManager类新增放大缩小控件的样式属性设置
 java代码
 ```java
    MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
-   ArcgisToolManager.create(mMapView).builderMeasure(measureToolView);
+   ArcgisToolManager arcgisToolManager=new ArcgisToolManager(this,mMapView);
+   arcgisToolManager.builderMeasure(measureToolView);
 ```
-注意：请不要在ArcgisToolManager.create()之后给mMapView设置点击事件，不然会覆盖掉MeasureToolView的地图点击事件，如需要在地图点击之后做一些自己的操作，请看下面设置回调的说明。<br>
+注意：请不要给mMapView设置点击事件，不然会覆盖掉MeasureToolView的地图点击事件，如需要在地图点击之后做一些自己的操作，请看下面设置回调的说明。<br>
 
 以上代码将会显示默认的控件样式，下图是默认样式
 ![](https://github.com/roomanl/ArcgisTool/blob/master/1.jpg?raw=true)
@@ -91,7 +96,7 @@ MeasureToolView支持样式设置，可以设置成自己需要的样式，下�
 #### java代码设置属性
 ```java
 MeasureToolView measureToolView=(MeasureToolView)findViewById(R.id.measure_tool);
-ArcgisToolManager.create(mMapView).builderMeasure(measureToolView)
+arcgisToolManager.builderMeasure(measureToolView)
         .setButtonWidth(60)//设置每一个按钮宽度;默认35
         .setButtonHeight(40)//设置每一个按钮高度;默认35
         .setMeasureBackground(R.color.colorAccent)//设置整个控件背景，默认白色圆角矩形
@@ -116,9 +121,8 @@ ArcgisToolManager.create(mMapView).builderMeasure(measureToolView)
 ```
 #### 设置地图点击回调
 ```java
-//注意：setMapClickCallBack()要在create()之后,builderMeasure()之前调用
-ArcgisToolManager.create(this,mMapView)
-            .setMapClickCallBack(new DefaultMapViewOnTouchListener(this,mMapView){
+//注意：setMapClickCallBack()要在builderMeasure()之前调用
+arcgisToolManager.setMapClickCallBack(new MapViewOnTouchListener(){
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
                     Toast.makeText(MainActivity.this,"onSingleTapUp",Toast.LENGTH_SHORT).show();
@@ -149,7 +153,7 @@ ArcgisToolManager.create(this,mMapView)
 ```
 #### 设置测量工具按钮点击回调
 ```java
-    ArcgisToolManager.create(mMapView).builderMeasure(measureToolView)
+    arcgisToolManager.builderMeasure(measureToolView)
             .setMeasureClickListener(new MeasureClickListener() {
                     @Override
                     public void prevClick(boolean hasPrev) {
@@ -242,11 +246,11 @@ MeasureToolView控件均由调用ArcGisMeasure开放接口实现
 java代码
 ```java
     ArcGisZoomView zoomBtn=(ArcGisZoomView)findViewById(R.id.arcgis_zoom_btn);
-    ArcgisToolManager.create(this,mMapView).builderZoomView(zoomBtn);
+    arcgisToolManager.builderZoomView(zoomBtn);
 ```
 java设置属性
 ```java
-ArcgisToolManager.create(this,mMapView).builderZoomView(zoomBtn)
+arcgisToolManager.builderZoomView(zoomBtn)
             .setZoomHeight(35)//设置每一个按钮高度;默认35
             .setZoomWidth(60)/设置每一个按钮宽度;默认35
             .setZoomBackground(R.drawable.round_corner)//设置整个控件背景，默认白色圆角矩形
@@ -291,11 +295,11 @@ ArcgisToolManager.create(this,mMapView).builderZoomView(zoomBtn)
 java代码
 ```java
  MapRotateView mapRotateView=(MapRotateView)findViewById(R.id.map_rotate_view);
-ArcgisToolManager.create(this,mMapView).builderRotateView(mapRotateView);
+arcgisToolManager.builderRotateView(mapRotateView);
 ```
 java设置属性
 ```java
-ArcgisToolManager.create(this,mMapView).builderRotateView(mapRotateView)
+arcgisToolManager.builderRotateView(mapRotateView)
         .setHeight(40)//设置每一个按钮宽度;默认35
         .setWidth(60)//设置每一个按钮宽度;默认35
         .setBackground(R.drawable.round_corner)//设置整个控件背景，默认白色圆角矩形

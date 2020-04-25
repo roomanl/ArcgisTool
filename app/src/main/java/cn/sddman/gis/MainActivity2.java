@@ -1,8 +1,8 @@
 package cn.sddman.gis;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -27,12 +27,11 @@ import cn.sddman.arcgistool.listener.MapViewOnTouchListener;
 import cn.sddman.arcgistool.listener.MeasureClickListener;
 import cn.sddman.arcgistool.listener.ZoomClickListener;
 import cn.sddman.arcgistool.manager.ArcgisToolManager;
-import cn.sddman.arcgistool.manager.MeasureToolManager;
 import cn.sddman.arcgistool.view.ArcGisZoomView;
 import cn.sddman.arcgistool.view.MapRotateView;
 import cn.sddman.arcgistool.view.MeasureToolView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity {
     private MapView mMapView;
     private String url="https://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer";
     private String templateUri="http://mt{subDomain}.google.cn/vt?lyrs=m&scale=1&hl=zh-CN&gl=cn&x={col}&y={row}&z={level}";
@@ -57,27 +56,27 @@ public class MainActivity extends AppCompatActivity {
             .setMapClickCallBack(new MapViewOnTouchListener(){
                     @Override
                     public boolean onSingleTapUp(MotionEvent e) {
-                        Toast.makeText(MainActivity.this,"onSingleTapUp",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity2.this,"onSingleTapUp2",Toast.LENGTH_SHORT).show();
                         return super.onSingleTapUp(e);
                     }
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
-                        Toast.makeText(MainActivity.this,"onDoubleTap",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity2.this,"onDoubleTap2",Toast.LENGTH_SHORT).show();
                         return super.onDoubleTap(e);
                     }
                     @Override
                     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                        Toast.makeText(MainActivity.this,"onScroll",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity2.this,"onScroll2",Toast.LENGTH_SHORT).show();
                         return super.onScroll(e1, e2, distanceX, distanceY);
                     }
                     @Override
                     public boolean onRotate(MotionEvent event, double rotationAngle) {
-                        Toast.makeText(MainActivity.this,"onRotate",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity2.this,"onRotate2",Toast.LENGTH_SHORT).show();
                         return super.onRotate(event, rotationAngle);
                     }
                     @Override
                     public boolean onScale(ScaleGestureDetector detector) {
-                        Toast.makeText(MainActivity.this,"onScale",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity2.this,"onScale2",Toast.LENGTH_SHORT).show();
                         return super.onScale(detector);
                     }
                 })
@@ -106,76 +105,77 @@ public class MainActivity extends AppCompatActivity {
                 .setMeasureClickListener(new MeasureClickListener() {
                     @Override
                     public void prevClick(boolean hasPrev) {
-                        Toast.makeText(MainActivity.this,"MeasureToolView prevClick",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity2.this,"MeasureToolView prevClick2",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void nextClick(boolean hasNext) {
-                        Toast.makeText(MainActivity.this,"MeasureToolView nextClick",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity2.this,"MeasureToolView nextClick2",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void lengthClick() {
-                        Toast.makeText(MainActivity.this,"MeasureToolView lengthClick",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity2.this,"MeasureToolView lengthClick2",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void areaClick() {
-                        Toast.makeText(MainActivity.this,"MeasureToolView areaClick",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity2.this,"MeasureToolView areaClick2",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void clearClick(DrawEntity draw) {
-                        Toast.makeText(MainActivity.this,"MeasureToolView clearClick",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity2.this,"MeasureToolView clearClick2",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void endClick(DrawEntity draw) {
-                        Toast.makeText(MainActivity.this,"MeasureToolView endClick",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity2.this,"MeasureToolView endClick2",Toast.LENGTH_SHORT).show();
                     }
                 });
         ArcGisZoomView zoomBtn=(ArcGisZoomView)findViewById(R.id.arcgis_zoom_btn);
         arcgisToolManager.builderZoomView(zoomBtn)
-            .setZoomHeight(35)
-            .setZoomWidth(60)
-            .setZoomBackground(R.drawable.round_corner)
-            .isHorizontal(true)
-            .setZoomOutImage(R.drawable.sddman_zoomout)
-            .setZoomInImage(R.drawable.sddman_zoomin)
-            .setShowText(true)
-            .setZoomOutText("缩小")
-            .setZoomInText("放大")
-            .setFontSize(12)
-            .setFontColor(R.color.colorMain)
-            .setZoomClickListener(new ZoomClickListener() {
-                @Override
-                public void zoomInClick(View view) {
-                    Toast.makeText(MainActivity.this,"zoom in",Toast.LENGTH_SHORT).show();
-                }
+                .setZoomHeight(35)
+                .setZoomWidth(60)
+                .setZoomBackground(R.drawable.round_corner)
+                .isHorizontal(true)
+                .setZoomOutImage(R.drawable.sddman_zoomout)
+                .setZoomInImage(R.drawable.sddman_zoomin)
+                .setShowText(true)
+                .setZoomOutText("缩小2")
+                .setZoomInText("放大2")
+                .setFontSize(12)
+                .setFontColor(R.color.colorMain)
+                .setZoomClickListener(new ZoomClickListener() {
+                    @Override
+                    public void zoomInClick(View view) {
+                        Toast.makeText(MainActivity2.this,"zoom in2",Toast.LENGTH_SHORT).show();
 
-                @Override
-                public void zoomOutClick(View view) {
-                    Toast.makeText(MainActivity.this,"zoom out",Toast.LENGTH_SHORT).show();
-                }
-            });
+                    }
+
+                    @Override
+                    public void zoomOutClick(View view) {
+                        Toast.makeText(MainActivity2.this,"zoom out2",Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         MapRotateView mapRotateView=(MapRotateView)findViewById(R.id.map_rotate_view);
         arcgisToolManager.builderRotateView(mapRotateView)
-        .setHeight(40)
-        .setWidth(60)
-        .setBackground(R.drawable.round_corner)
-        .setRotateNum(-45)
-        .setRotateImage(R.drawable.sddman_measure_prev)
-        .setRotateText("旋转")
-        .setShowText(true)
-        .setFontSize(16)
-        .setFontColor(R.color.colorMain)
-        .setMapRotateClickListener(new MapRotateClickListener() {
-            @Override
-            public void mapRotateClick(View view) {
-                Toast.makeText(MainActivity.this,"Map Rotate",Toast.LENGTH_SHORT).show();
-            }
-        });
+                .setHeight(40)
+                .setWidth(60)
+                .setBackground(R.drawable.round_corner)
+                .setRotateNum(-45)
+                .setRotateImage(R.drawable.sddman_measure_prev)
+                .setRotateText("旋转2")
+                .setShowText(true)
+                .setFontSize(16)
+                .setFontColor(R.color.colorMain)
+                .setMapRotateClickListener(new MapRotateClickListener() {
+                    @Override
+                    public void mapRotateClick(View view) {
+                        Toast.makeText(MainActivity2.this,"Map Rotate2",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
