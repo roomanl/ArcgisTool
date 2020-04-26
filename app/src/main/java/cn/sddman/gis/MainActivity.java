@@ -29,6 +29,7 @@ import cn.sddman.arcgistool.listener.ZoomClickListener;
 import cn.sddman.arcgistool.manager.ArcgisToolManager;
 import cn.sddman.arcgistool.manager.MeasureToolManager;
 import cn.sddman.arcgistool.view.ArcGisZoomView;
+import cn.sddman.arcgistool.view.DrawGraphView;
 import cn.sddman.arcgistool.view.MapRotateView;
 import cn.sddman.arcgistool.view.MeasureToolView;
 
@@ -57,27 +58,27 @@ public class MainActivity extends AppCompatActivity {
             .setMapClickCallBack(new MapViewOnTouchListener(){
                     @Override
                     public boolean onSingleTapUp(MotionEvent e) {
-                        Toast.makeText(MainActivity.this,"onSingleTapUp",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this,"onSingleTapUp",Toast.LENGTH_SHORT).show();
                         return super.onSingleTapUp(e);
                     }
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
-                        Toast.makeText(MainActivity.this,"onDoubleTap",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this,"onDoubleTap",Toast.LENGTH_SHORT).show();
                         return super.onDoubleTap(e);
                     }
                     @Override
                     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                        Toast.makeText(MainActivity.this,"onScroll",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this,"onScroll",Toast.LENGTH_SHORT).show();
                         return super.onScroll(e1, e2, distanceX, distanceY);
                     }
                     @Override
                     public boolean onRotate(MotionEvent event, double rotationAngle) {
-                        Toast.makeText(MainActivity.this,"onRotate",Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(MainActivity.this,"onRotate",Toast.LENGTH_SHORT).show();
                         return super.onRotate(event, rotationAngle);
                     }
                     @Override
                     public boolean onScale(ScaleGestureDetector detector) {
-                        Toast.makeText(MainActivity.this,"onScale",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this,"onScale",Toast.LENGTH_SHORT).show();
                         return super.onScale(detector);
                     }
                 })
@@ -176,6 +177,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"Map Rotate",Toast.LENGTH_SHORT).show();
             }
         });
+        DrawGraphView drawGraphView=findViewById(R.id.arcgis_draw_tool);
+        arcgisToolManager.builderDrawGraphView(drawGraphView)
+                .setButtonWidth(60)
+                .setButtonHeight(40)
+                .setBackground(R.color.colorAccent)
+                .setSohwText(true)
+                .setFontSize(12)
+                .setFontColor(R.color.color444);
     }
 
     @Override

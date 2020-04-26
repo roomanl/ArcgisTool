@@ -17,6 +17,7 @@ import com.esri.arcgisruntime.mapping.view.MapView;
 import cn.sddman.arcgistool.R;
 import cn.sddman.arcgistool.common.Variable;
 import cn.sddman.arcgistool.entity.DrawEntity;
+import cn.sddman.arcgistool.listener.DrawGraphListener;
 import cn.sddman.arcgistool.listener.MeasureClickListener;
 import cn.sddman.arcgistool.util.ArcGisDrawGraph;
 import cn.sddman.arcgistool.util.ArcGisMeasure;
@@ -26,14 +27,14 @@ public class DrawGraphView extends LinearLayout {
     private Context context;
     private ArcGisMeasure arcgisMeasure;
     private MapView mMapView;
-    private LinearLayout drawingBgView,drawingLineLayout,drawingPolygonLayout,drawingOrthogonLayout,drawingCircleLayout,drawingEllipseLayout,drawingRhombusLayout;
+    private LinearLayout drawingBgView,drawingLineLayout,drawingPolygonLayout,drawingOrthogonLayout,drawingCircleLayout,drawingEllipseLayout,drawingRhombusLayout,clearDrawLayout;
     private ImageView drawingLineImageView,drawingPolygonImageView,drawingOrthogonImageView,drawingCircleImageView,drawingEllipseImageView,drawingRhombusImageView;
-    private TextView drawingLineText,drawingPolygonText,drawingOrthogonText,drawingCircleText,drawingEllipseText,drawingRhombusText;
+    private TextView drawingLineText,drawingPolygonText,drawingOrthogonText,drawingCircleText,drawingEllipseText,drawingRhombusText,clearDrawText;
     private int bgColor,fontColor,drawingLineImage,drawingPolygonImage,drawingOrthogonImage,drawingCircleImage,drawingEllipseImage,drawingRhombusImage;
     private int buttonWidth,buttonHeight,fontSize;
     private boolean isHorizontal,showText=false;
     private Variable.GraphType graphType=null;
-    private String drawingLineStr,drawingPolygonStr,drawingOrthogonStr,drawingCircleStr,drawingEllipseStr,drawingRhombusStr;
+    private String drawingLineStr,drawingPolygonStr,drawingOrthogonStr,drawingCircleStr,drawingEllipseStr,drawingRhombusStr,clearDrawStr;
     private MeasureClickListener measureClickListener;
     private ArcGisDrawGraph arcGisDrawGraph=null;
     public DrawGraphView(Context context, @Nullable AttributeSet attrs) {
@@ -72,6 +73,7 @@ public class DrawGraphView extends LinearLayout {
         drawingCircleText=(TextView)findViewById(R.id.drawing_circle_text);
         drawingEllipseText=(TextView)findViewById(R.id.drawing_ellipse_text);
         drawingRhombusText=(TextView)findViewById(R.id.drawing_rhombus_text);
+        clearDrawText=(TextView)findViewById(R.id.clear_draw_text);
 
         drawingBgView=(LinearLayout)findViewById(R.id.drawing_bg);
         drawingLineLayout=(LinearLayout)findViewById(R.id.drawing_line_layout);
@@ -80,6 +82,7 @@ public class DrawGraphView extends LinearLayout {
         drawingCircleLayout=(LinearLayout)findViewById(R.id.drawing_circle_layout);
         drawingEllipseLayout=(LinearLayout)findViewById(R.id.drawing_ellipse_layout);
         drawingRhombusLayout=(LinearLayout)findViewById(R.id.drawing_rhombus_layout);
+        clearDrawLayout=(LinearLayout)findViewById(R.id.drawing_clear_layout);
 
         //drawingLineLayout.setVisibility(GONE);
         //drawingPolygonLayout.setVisibility(GONE);
@@ -90,6 +93,7 @@ public class DrawGraphView extends LinearLayout {
         drawingCircleLayout.setOnClickListener(listener);
         drawingEllipseLayout.setOnClickListener(listener);
         drawingRhombusLayout.setOnClickListener(listener);
+        clearDrawLayout.setOnClickListener(listener);
     }
 
     private void initAttr(TypedArray ta){
@@ -131,7 +135,17 @@ public class DrawGraphView extends LinearLayout {
         setdrawingEllipseImage(drawingEllipseImage);
         setdrawingRhombusImage(drawingRhombusImage);
     }
-
+    private void initDrawGraph(){
+        if(arcGisDrawGraph==null){
+            arcGisDrawGraph=new ArcGisDrawGraph(context,mMapView);
+            arcGisDrawGraph.setDrawGraphListener(new DrawGraphListener() {
+                @Override
+                public void drawEnd(Variable.GraphType graphType) {
+                    clearBgColor();
+                }
+            });
+        }
+    }
     private OnClickListener listener=new OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -145,16 +159,21 @@ public class DrawGraphView extends LinearLayout {
             }else if (i == R.id.drawing_orthogon_layout){
                 clearBgColor();
                 drawingOrthogonLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
+                graphType= Variable.GraphType.BOX;
             }else if (i == R.id.drawing_circle_layout){
                 clearBgColor();
                 drawingCircleLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
-                mMapView.setCanMagnifierPanMap(true);
+                graphType= Variable.GraphType.CIRCLE;
             }else if (i == R.id.drawing_ellipse_layout){
                 clearBgColor();
                 drawingEllipseLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
             }else if (i == R.id.drawing_rhombus_layout){
                 clearBgColor();
                 drawingRhombusLayout.setBackgroundColor(getResources().getColor(R.color.black_1a));
+            }else if (i == R.id.drawing_clear_layout){
+                clearBgColor();
+                initDrawGraph();
+                arcGisDrawGraph.clear();
             }
         }
     };
@@ -168,15 +187,15 @@ public class DrawGraphView extends LinearLayout {
         drawingRhombusLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
     }
     public void onMapSingleTapUp(MotionEvent e){
-
+        initDrawGraph();
+        if(graphType== Variable.GraphType.CIRCLE){
+            arcGisDrawGraph.drawCircle(e.getX(), e.getY());
+        }else if(graphType== Variable.GraphType.BOX){
+            arcGisDrawGraph.drawBox(e.getX(), e.getY());
+        }
     }
     public void onScroll(MotionEvent e1,MotionEvent e2,float distanceX, float distanceY) {
-        if(arcGisDrawGraph==null){
-            arcGisDrawGraph=new ArcGisDrawGraph(context,mMapView);
-        }
-        if(graphType== Variable.GraphType.CIRCLE){
-            arcGisDrawGraph.drawCircle(e1,e2,distanceX,distanceY);
-        }
+
 
     }
 
@@ -206,7 +225,7 @@ public class DrawGraphView extends LinearLayout {
 
     @Deprecated
     public void setBackground(int bg) {
-        this.bgColor=bgColor;
+        this.bgColor=bg;
         drawingBgView.setBackground(getResources().getDrawable(bg));
     }
     @Deprecated
@@ -227,6 +246,7 @@ public class DrawGraphView extends LinearLayout {
         drawingCircleText.setVisibility(view);
         drawingEllipseText.setVisibility(view);
         drawingRhombusText.setVisibility(view);
+        clearDrawText.setVisibility(view);
     }
     @Deprecated
     public void setdrawingLineStr(String drawingLineStr) {
@@ -265,6 +285,13 @@ public class DrawGraphView extends LinearLayout {
         drawingRhombusText.setText(drawingRhombusStr);
     }
     @Deprecated
+    public void setClearDrawStr(String clearDrawStr) {
+        if(clearDrawStr==null) return;
+        this.clearDrawStr = clearDrawStr;
+        clearDrawText.setText(clearDrawStr);
+    }
+
+    @Deprecated
     public void setFontColor(int fontColor) {
         this.fontColor = fontColor;
         int color = getResources().getColor(fontColor);
@@ -274,6 +301,7 @@ public class DrawGraphView extends LinearLayout {
         drawingCircleText.setTextColor(color);
         drawingEllipseText.setTextColor(color);
         drawingRhombusText.setTextColor(color);
+        clearDrawText.setTextColor(color);
     }
     @Deprecated
     public void setFontSize(int fontSize) {
@@ -284,6 +312,7 @@ public class DrawGraphView extends LinearLayout {
         drawingCircleText.setTextSize(fontSize);
         drawingEllipseText.setTextSize(fontSize);
         drawingRhombusText.setTextSize(fontSize);
+        clearDrawText.setTextSize(fontSize);
     }
     @Deprecated
     public void setdrawingLineImage(int drawingLineImage) {

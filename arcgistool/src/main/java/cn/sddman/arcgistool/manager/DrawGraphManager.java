@@ -55,62 +55,67 @@ public class DrawGraphManager {
         drawGraphView.setFontColor(fontColor);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingLineStr(String drawingLineStr) {
         drawGraphView.setdrawingLineStr(drawingLineStr);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingPolygonStr(String drawingPolygonStr) {
         drawGraphView.setdrawingPolygonStr(drawingPolygonStr);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingOrthogonStr(String drawingOrthogonStr) {
         drawGraphView.setdrawingOrthogonStr(drawingOrthogonStr);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingCircleStr(String drawingCircleStr) {
         drawGraphView.setdrawingCircleStr(drawingCircleStr);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingEllipseStr(String drawingEllipseStr) {
         drawGraphView.setdrawingEllipseStr(drawingEllipseStr);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingRhombusStr(String drawingRhombusStr) {
         drawGraphView.setdrawingRhombusStr(drawingRhombusStr);
         return this;
     }
-    @Deprecated
+    
+    public DrawGraphManager setClearDrawStr(String clearDrawStr) {
+        drawGraphView.setClearDrawStr(clearDrawStr);
+        return this;
+    }
+    
     public DrawGraphManager setdrawingLineImage(int drawingLineImage) {
         drawGraphView.setdrawingLineImage(drawingLineImage);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingPolygonImage(int drawingPolygonImage) {
         drawGraphView.setdrawingPolygonImage(drawingPolygonImage);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingOrthogonImage(int drawingOrthogonImage) {
         drawGraphView.setdrawingOrthogonImage(drawingOrthogonImage);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingCircleImage(int drawingCircleImage) {
         drawGraphView.setdrawingCircleImage(drawingCircleImage);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingEllipseImage(int drawingEllipseImage) {
         drawGraphView.setdrawingEllipseImage(drawingEllipseImage);
         return this;
     }
-    @Deprecated
+    
     public DrawGraphManager setdrawingRhombusImage(int drawingRhombusImage) {
         drawGraphView.setdrawingRhombusImage(drawingRhombusImage);
         return this;

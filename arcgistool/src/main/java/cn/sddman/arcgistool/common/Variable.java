@@ -10,7 +10,7 @@ public class Variable {
     public static enum GraphType {
         LINE,
         POLYGON,
-        ORTHOGON,
+        BOX,
         CIRCLE,
         ELLIPSE,
         RHOMBUS;

@@ -39,6 +39,10 @@ public class ArcgisToolManager {
                 if(measureToolManager!=null){
                     measureToolManager.onMapSingleTapUp(e);
                 }
+
+                if(drawGraphManager!=null){
+                    drawGraphManager.onMapSingleTapUp(e);
+                }
                 if(mapListener!=null){
                     super.onSingleTapUp(e);
                     return mapListener.onSingleTapUp(e);

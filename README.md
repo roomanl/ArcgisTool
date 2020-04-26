@@ -5,11 +5,15 @@
 ## 引用：
 [![](https://jitpack.io/v/roomanl/ArcgisTool.svg)](https://jitpack.io/#roomanl/ArcgisTool)
 ```gradle
-implementation 'com.github.roomanl:ArcgisTool:1.7'
+implementation 'com.github.roomanl:ArcgisTool:1.8'
 或者
 implementation project(':arcgistool')
 ```
 ## 更新日志：
+#### 2019/04/26 V1.8
+新增图形绘制控件(圆形、矩形)<br>
+圆形：在地图上点两个点，以这两个点的距离为半径绘制一个圆<br>
+矩形：在地图上点两个点，以第一个点为右上角，第二个点为左下角绘制一个矩形<br>
 #### 2019/04/25 V1.7
 1、补全所有地图事件回调<br>
 2、修复不能在多个地图界面使用工具控件的BUG。<br>
@@ -221,6 +225,37 @@ MeasureToolView控件均由调用ArcGisMeasure开放接口实现
    DrawEntity draw=arcgisMeasure.clearMeasure();
     //结束测量，返回DrawEntity所有绘制的文字、点、线、面的集合
    DrawEntity draw=arcgisMeasure.endMeasure();
+```
+## 图形绘制控件：
+图形绘制控件包括：矩形、圆形、清除3个功能。 <br>
+圆形：在地图上点两个点，以这两个点的距离为半径绘制一个圆<br>
+矩形：在地图上点两个点，以第一个点为右上角，第二个点为左下角绘制一个矩形<br>
+清除：清除所有绘制的图形<br>
+界面代码
+```xml
+   <cn.sddman.arcgistool.view.DrawGraphView
+        android:id="@+id/arcgis_draw_tool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="10dp">
+    </cn.sddman.arcgistool.view.DrawGraphView>
+```
+java代码
+```java
+    DrawGraphView drawGraphView=findViewById(R.id.arcgis_draw_tool);
+    arcgisToolManager.builderDrawGraphView(drawGraphView)
+```
+属性设置
+```java
+    arcgisToolManager.builderDrawGraphView(drawGraphView)
+        .setButtonWidth(60)
+        .setButtonHeight(40)
+        .setBackground(R.color.colorAccent)
+        .setSohwText(true)
+        .setFontSize(12)
+        .setFontColor(R.color.color444);
 ```
 ## 放大缩小控件：
 界面代码
