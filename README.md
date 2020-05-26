@@ -10,11 +10,14 @@ implementation 'com.github.roomanl:ArcgisTool:1.8'
 implementation project(':arcgistool')
 ```
 ## 更新日志：
-#### 2019/04/26 V1.8
+#### 2019/05/26 V1.9
+1、修复测量结果偏大的BUG。<br>
+BUG产生原因：用错API了，原来使用平面测量的API去了。现在已经改成大地测量API
+#### 2020/04/26 V1.8
 新增图形绘制控件(圆形、矩形)<br>
 圆形：在地图上点两个点，以这两个点的距离为半径绘制一个圆<br>
 矩形：在地图上点两个点，以这两个点为对角线绘制一个矩形<br>
-#### 2019/04/25 V1.7
+#### 2020/04/25 V1.7
 1、补全所有地图事件回调<br>
 2、修复不能在多个地图界面使用工具控件的BUG。<br>
 BUG产生原因：原来的ArcgisToolManager.create(Context, MapView)返回的是静态的。所以多个界面的ArcgisToolManager都是同一个对象，所以出现这样的BUG。<br>

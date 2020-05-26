@@ -2,9 +2,12 @@ package cn.sddman.arcgistool.util;
 
 import android.content.Context;
 
+import com.esri.arcgisruntime.geometry.GeodeticCurveType;
 import com.esri.arcgisruntime.geometry.GeographicTransformation;
 import com.esri.arcgisruntime.geometry.GeographicTransformationStep;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
+import com.esri.arcgisruntime.geometry.LinearUnit;
+import com.esri.arcgisruntime.geometry.LinearUnitId;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.PolygonBuilder;
 import com.esri.arcgisruntime.geometry.PolylineBuilder;
@@ -137,7 +140,8 @@ public class ArcGisMeasure extends Draw {
     }
     private void showLength(PolylineBuilder line,Point point){
         if(line!=null) {
-            double length = GeometryEngine.length(line.toGeometry());
+            //double length = GeometryEngine.length(line.toGeometry());
+            double length = GeometryEngine.lengthGeodetic(line.toGeometry(),null, GeodeticCurveType.SHAPE_PRESERVING);
             lineLength+=length;
             lengthList.add(lineLength);
             tmpLengthList.clear();
@@ -149,7 +153,8 @@ public class ArcGisMeasure extends Draw {
 
     private void showArea(PolygonBuilder polygon){
         if(polygon!=null) {
-            double area = GeometryEngine.area(polygon.toGeometry());
+            //double area = GeometryEngine.area(polygon.toGeometry());
+            double area = GeometryEngine.areaGeodetic(polygon.toGeometry(),null, GeodeticCurveType.SHAPE_PRESERVING);
             String s=Util.forMatDouble(Math.abs(Util.areaChange(area,measureAreaType)));
             super.drawText(polygon.toGeometry().getExtent().getCenter(),s+Util.lengthEnameToCname(measureAreaType),true);
         }
