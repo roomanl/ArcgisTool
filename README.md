@@ -10,7 +10,7 @@ implementation 'com.github.roomanl:ArcgisTool:1.9'
 implementation project(':arcgistool')
 ```
 ## 更新日志：
-#### 2019/05/26 V1.9
+#### 2020/05/26 V1.9
 1、修复测量结果偏大的BUG。<br>
 BUG产生原因：用错API了，原来使用平面测量的API去了。现在已经改成大地测量API
 #### 2020/04/26 V1.8
