@@ -186,7 +186,7 @@ public class DrawGraphView extends LinearLayout {
         drawingEllipseLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
         drawingRhombusLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
     }
-    public void onMapSingleTapUp(MotionEvent e){
+    public void onSingleTapConfirmed(MotionEvent e){
         initDrawGraph();
         if(graphType== Variable.GraphType.CIRCLE){
             arcGisDrawGraph.drawCircle(e.getX(), e.getY());

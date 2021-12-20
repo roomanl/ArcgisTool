@@ -182,7 +182,7 @@ public class MeasureToolView extends LinearLayout {
             }
         }
     };
-    public void onMapSingleTapUp(MotionEvent e){
+    public void onSingleTapConfirmed(MotionEvent e){
         if(drawType==Variable.DrawType.LINE) {
             arcgisMeasure.startMeasuredLength(e.getX(), e.getY());
         }else if(drawType==Variable.DrawType.POLYGON){
