@@ -21,8 +21,8 @@ public class MeasureToolManager {
         measureToolView.init(mMapView);
     }
 
-    public void onMapSingleTapUp(MotionEvent e){
-        measureToolView.onMapSingleTapUp(e);
+    public void onSingleTapConfirmed(MotionEvent e){
+        measureToolView.onSingleTapConfirmed(e);
     }
     public MeasureToolManager setMeasureClickListener(MeasureClickListener measureClickListener) {
         measureToolView.setMeasureClickListener(measureClickListener);

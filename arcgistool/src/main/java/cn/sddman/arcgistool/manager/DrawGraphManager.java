@@ -21,8 +21,8 @@ public class DrawGraphManager {
         drawGraphView.init(mMapView);
     }
 
-    public void onMapSingleTapUp(MotionEvent e){
-        drawGraphView.onMapSingleTapUp(e);
+    public void onSingleTapConfirmed(MotionEvent e){
+        drawGraphView.onSingleTapConfirmed(e);
     }
     public void onScroll(MotionEvent e1,MotionEvent e2,float distanceX, float distanceY){
         drawGraphView.onScroll(e1,e2,distanceX,distanceY);

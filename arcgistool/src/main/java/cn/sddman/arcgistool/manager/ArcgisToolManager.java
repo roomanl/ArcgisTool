@@ -35,19 +35,19 @@ public class ArcgisToolManager {
         this.context=context;
         listener=new DefaultMapViewOnTouchListener(context,mMapView){
             @Override
-            public boolean onSingleTapUp(MotionEvent e) {
+            public boolean onSingleTapConfirmed(MotionEvent e) {
                 if(measureToolManager!=null){
-                    measureToolManager.onMapSingleTapUp(e);
+                    measureToolManager.onSingleTapConfirmed(e);
                 }
 
                 if(drawGraphManager!=null){
-                    drawGraphManager.onMapSingleTapUp(e);
+                    drawGraphManager.onSingleTapConfirmed(e);
                 }
                 if(mapListener!=null){
-                    super.onSingleTapUp(e);
-                    return mapListener.onSingleTapUp(e);
+                    super.onSingleTapConfirmed(e);
+                    return mapListener.onSingleTapConfirmed(e);
                 }
-                return super.onSingleTapUp(e);
+                return super.onSingleTapConfirmed(e);
             }
 
             @Override
@@ -165,12 +165,12 @@ public class ArcgisToolManager {
             }
 
             @Override
-            public boolean onSingleTapConfirmed(MotionEvent e) {
+            public boolean onSingleTapUp(MotionEvent e) {
                 if(mapListener!=null) {
-                    super.onSingleTapConfirmed(e);
-                    return mapListener.onSingleTapConfirmed(e);
+                    super.onSingleTapUp(e);
+                    return mapListener.onSingleTapUp(e);
                 }
-                return super.onSingleTapConfirmed(e);
+                return super.onSingleTapUp(e);
             }
 
             @Override
