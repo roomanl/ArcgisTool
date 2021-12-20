@@ -1,8 +1,8 @@
 # ArcGisTool
 封装Arcgis Runtime for Android 100.6.0地图基本操作。 <br>
 包括：测量工具控件及测量接口，放大缩小控件及放大缩小接口，地图旋转控件及地图旋转接口、绘制圆形、绘制矩形。 <br>
-![](https://github.com/roomanl/ArcgisTool/blob/master/GIF.gif?raw=true)
-![](https://github.com/roomanl/ArcgisTool/blob/master/GIF2.gif?raw=true)
+![](https://sddman.oss-cn-shenzhen.aliyuncs.com/github/ArcgisTool/GIF.gif)
+![](https://sddman.oss-cn-shenzhen.aliyuncs.com/github/ArcgisTool/GIF2.gif)
 ## 引用：
 [![](https://jitpack.io/v/roomanl/ArcgisTool.svg)](https://jitpack.io/#roomanl/ArcgisTool)
 ```gradle
@@ -71,10 +71,10 @@ java代码
 注意：请不要给mMapView设置点击事件，不然会覆盖掉MeasureToolView的地图点击事件，如需要在地图点击之后做一些自己的操作，请看下面设置回调的说明。<br>
 
 以上代码将会显示默认的控件样式，下图是默认样式
-![](https://github.com/roomanl/ArcgisTool/blob/master/1.jpg?raw=true)
+![](https://sddman.oss-cn-shenzhen.aliyuncs.com/github/ArcgisTool/1.jpg)
 
 MeasureToolView支持样式设置，可以设置成自己需要的样式，下图是自定义样式
-![](https://github.com/roomanl/ArcgisTool/blob/master/2.jpg?raw=true)
+![](https://sddman.oss-cn-shenzhen.aliyuncs.com/github/ArcgisTool/2.jpg)
 ### MeasureToolView属性样式设置
 #### 在界面设置属性
 ```xml
