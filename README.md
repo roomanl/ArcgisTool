@@ -1,7 +1,8 @@
 # ArcGisTool
 封装Arcgis Runtime for Android 100.6.0地图基本操作。 <br>
-包括：测量工具控件及测量接口，放大缩小控件及放大缩小接口，地图旋转控件及地图旋转接口。 <br>
+包括：测量工具控件及测量接口，放大缩小控件及放大缩小接口，地图旋转控件及地图旋转接口、绘制圆形、绘制矩形。 <br>
 ![](https://github.com/roomanl/ArcgisTool/blob/master/GIF.gif?raw=true)
+![](https://github.com/roomanl/ArcgisTool/blob/master/GIF2.gif?raw=true)
 ## 引用：
 [![](https://jitpack.io/v/roomanl/ArcgisTool.svg)](https://jitpack.io/#roomanl/ArcgisTool)
 ```gradle
@@ -10,6 +11,9 @@ implementation 'com.github.roomanl:ArcgisTool:1.9'
 implementation project(':arcgistool')
 ```
 ## 更新日志：
+#### 2021/12/20 V2.0
+1、修改绘制点击事件为onSingleTapConfirmed，解决单击绘制与双击放大冲突。<br>
+2、修改arcgis maven地址，解决1.9版无法引入的问题。<br>
 #### 2020/05/26 V1.9
 1、修复测量结果偏大的BUG。<br>
 BUG产生原因：用错API了，原来使用平面测量的API去了。现在已经改成大地测量API
